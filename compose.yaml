@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:14.2
+    container_name: postgres_container
+    environment:
+      POSTGRES_DB: test-db
+      POSTGRES_USER: test-user
+      POSTGRES_PASSWORD: test-pass
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  django:
+    build: .
+    container_name: django_container
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+
+volumes:
+  db-data:
