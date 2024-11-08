@@ -79,7 +79,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     An abstract base class implementing a fully featured User model with
     admin-compliant permissions.
-
     Username and password are required. Other fields are optional.
     """
 
