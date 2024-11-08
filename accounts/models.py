@@ -115,8 +115,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         _("discord id"),
         max_length=20,
         unique=True,
-        blank=False,
-        null=True,
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
