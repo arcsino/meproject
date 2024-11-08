@@ -3,9 +3,9 @@ services:
     image: postgres:14.2
     container_name: postgres_container
     environment:
-      POSTGRES_DB: test-db
-      POSTGRES_USER: test-user
-      POSTGRES_PASSWORD: test-pass
+      POSTGRES_DB: me-db
+      POSTGRES_USER: me-user
+      POSTGRES_PASSWORD: me-password
     volumes:
       - db-data:/var/lib/postgresql/data
 
