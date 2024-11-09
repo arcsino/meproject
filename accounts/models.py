@@ -110,7 +110,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             "Unselect this instead of deleting accounts."
         ),
     )
-    discord_id = models.IntegerField(
+    discord_id = models.SlugField(
         _("discord id"),
         max_length=20,
         unique=True,
@@ -121,4 +121,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["discord_id"]

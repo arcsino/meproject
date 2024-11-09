@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,9 +77,9 @@ WSGI_APPLICATION = 'meproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'me-db',
-        'USER': 'me-user',
-        'PASSWORD': 'me-password',
+        'NAME': 'test-db',
+        'USER': 'test-user',
+        'PASSWORD': 'test-pass',
         'HOST': 'postgres',
         'PORT': '5432',
     }
