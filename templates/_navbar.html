@@ -1,10 +1,14 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <!-- Login/Logout -->
-    {% if user.is_authenticated %}
-    <form action="" method="post">{% csrf_token %}
-        <button type="submit" class="btn btn-outline-info me-3">Logout</button>
-    </form>
-    {% else %}
-    <a href="{% url 'login' %}" class="btn btn-outline-info me-3">Login</a>
-    {% endif %}
+<nav class="navbar navbar-expand-lg navbar-secondary bg-secondary">
+    <div class="container-fluid">
+        <!-- Login/Logout -->
+        {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="POST">{% csrf_token %}
+            <button class="btn btn-danger" type="submit">Logout</button>
+        </form>
+        <div class="alert alert-success">ログインしています。</div>
+        {% else %}
+        <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+        <div class="alert alert-warning">ログインしていません。</div>
+        {% endif %}
+    </div>
 </nav>
