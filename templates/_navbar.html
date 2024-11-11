@@ -1,7 +1,7 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Login/Logout -->
     {% if user.is_authenticated %}
-    <form action="{% url 'logout' %}" method="post">{% csrf_token %}
+    <form action="" method="post">{% csrf_token %}
         <button type="submit" class="btn btn-outline-info me-3">Logout</button>
     </form>
     {% else %}
