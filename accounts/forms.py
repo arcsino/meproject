@@ -10,7 +10,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "discord_username", "password1", "password2")
+        fields = ("username", "discord_id", "password1", "password2")
     
     """
     def __init__(self, *args, **kwargs):

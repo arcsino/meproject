@@ -52,11 +52,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             "unique": _("同じユーザー名が既に登録済みです。"),
         },
     )
-    discord_username = models.CharField(
-        _("Discordのユーザー名"),
+    discord_id = models.SlugField(
+        _("Discord ID"),
         max_length=20,
         unique=True,
-        help_text=_("Discordのユーザー名を本人確認に利用します。"),
+        help_text=_("DiscordのユーザーIDを本人確認に利用します。"),
     )
     is_superuser = models.BooleanField(
         _("superuer"),
@@ -82,3 +82,23 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["discord_id"]
+
+
+class DiscordUserManager(models.Manager):
+    def create_discord_user(self, username, discord_id):
+        user = self.create(username=username, discord_id=discord_id)
+        return user
+
+
+class DiscordUser(models.Model):
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+    )
+    discord_id = models.SlugField(
+        _("Discord ID"),
+        max_length=20,
+        unique=True,
+    )
+
+    objects = DiscordUserManager()
