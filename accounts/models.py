@@ -8,17 +8,32 @@ from django.utils.translation import gettext_lazy as _
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, username, email, password=None, **extra_fields):
-        email = self.normalize_email(email)
-        user = self.model(username=username, email=email, **extra_fields)
+    def _create_user(self, username, discord_id, password, **extra_fields):
+        if not username:
+            raise ValueError("この項目は必須です。")
+        user = self.model(username=username, discord_id=discord_id, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
         return user
 
-    def create_superuser(self, username, email, password=None, **extra_fields):
-        extra_fields.setdefault("is_staff", True)
-        extra_fields.setdefault("is_superuser", True)
-        return self.create_user(username, email, password, **extra_fields)
+    def create_user(self, username, discord_id=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_active', False)
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(username, discord_id, password, **extra_fields)
+
+    def create_superuser(self, username, discord_id=None, password=None, **extra_fields):
+        extra_fields['is_active'] = True
+        extra_fields['is_staff'] = True
+        extra_fields['is_superuser'] = True
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("スーパーユーザーには is_staff=True が必要です。")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("スーパーユーザーには is_superuser=True が必要です。")
+
+        return self._create_user(username, discord_id, password, **extra_fields)
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -37,12 +52,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             "unique": _("同じユーザー名が既に登録済みです。"),
         },
     )
-    email = models.EmailField(_("email address"), blank=True)
-    discord_id = models.SlugField(
-        _("Discord ID"),
+    discord_username = models.CharField(
+        _("Discordのユーザー名"),
         max_length=20,
         unique=True,
-        help_text=_("DiscordのユーザーIDを本人確認メールの送信に利用します。"),
+        help_text=_("Discordのユーザー名を本人確認に利用します。"),
+    )
+    is_superuser = models.BooleanField(
+        _("superuer"),
+        default=False,
+        help_text=_("ユーザーがスーパーユーザーかどうかを示します。"),
     )
     is_staff = models.BooleanField(
         _("staff status"),
@@ -51,7 +70,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     is_active = models.BooleanField(
         _("active"),
-        default=True,
+        default=False,
         help_text=_(
             "ユーザーがアクティブかどうかを示します。"
             "アカウントを削除する代わりに選択を解除してください。"
@@ -61,6 +80,5 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    EMAIL_FIELD = "email"
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["discord_id"]

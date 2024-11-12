@@ -7,22 +7,22 @@ User = get_user_model()
 class CustomUserAdmin(UserAdmin):
     list_display = (
         "username",
-        "discord_id",
+        "discord_username",
         "is_staff",
         "is_active",
     )
 
-    search_fields = ("username", "discord_id")
+    search_fields = ("username", "discord_username")
 
     ordering = ("username",)
 
-    fieldsets = (("ユーザー情報", {"fields": ("username", "discord_id", "password", "is_staff", "is_active", "date_joined")}),)
+    fieldsets = (("ユーザー情報", {"fields": ("username", "discord_username", "password", "is_staff", "is_active", "date_joined")}),)
 
     add_fieldsets = (
         (
             None,
             {
-                "fields": ("username", "discord_id", "password1", "password2"),
+                "fields": ("username", "discord_username", "password1", "password2"),
             },
         ),
     )
