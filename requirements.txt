@@ -1,3 +1,5 @@
 Django
 psycopg2-binary
 discord.py
+tabulate
+black
