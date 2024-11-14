@@ -7,7 +7,7 @@ from django.contrib.auth.views import (
 )
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView
-from .forms import SignUpForm, LoginForm, CustomPasswordChangeForm
+from .forms import SignupForm, LoginForm, PasswordChangeForm
 
 
 class IndexView(TemplateView):
@@ -15,31 +15,36 @@ class IndexView(TemplateView):
     template_name = "index.html"
 
 
-class SignUpView(CreateView):
+class SignupView(CreateView):
     """ サインアップビュー """
-    form_class = SignUpForm
+    form_class = SignupForm
     success_url = reverse_lazy("accounts:login")
     template_name = "accounts/signup.html"
 
 
-class CustomLoginView(LoginView):
+class LoginView(LoginView):
     """ログインビュー"""
     form_class = LoginForm
     template_name = 'accounts/login.html'
 
 
-class CustomLogoutView(LoginRequiredMixin, LogoutView):
+class LogoutConfirmView(LoginRequiredMixin, TemplateView):
+    """ログアウト確認ビュー"""
+    template_name = 'accounts/logout.html'
+
+
+class LogoutView(LoginRequiredMixin, LogoutView):
     """ログアウトビュー"""
     template_name = 'accounts/login.html'
 
 
-class CustomPasswordChangeView(PasswordChangeView):
+class PasswordChangeView(PasswordChangeView):
     """パスワード変更ビュー"""
-    form_class = CustomPasswordChangeForm
+    form_class = PasswordChangeForm
     success_url = reverse_lazy("accounts:password_change_done")
     template_name = 'accounts/password_change_form.html'
 
 
-class CustomPasswordChangeDoneView(PasswordChangeDoneView):
+class PasswordChangeDoneView(PasswordChangeDoneView):
     """パスワード変更済ビュー"""
     template_name = 'accounts/password_change_done.html'

@@ -1,11 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
-from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
 
-class SignUpForm(UserCreationForm):
+class SignupForm(UserCreationForm):
     usable_password = None
 
     class Meta:
@@ -31,7 +30,7 @@ class LoginForm(AuthenticationForm):
     """
 
 
-class CustomPasswordChangeForm(PasswordChangeForm):
+class PasswordChangeForm(PasswordChangeForm):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
