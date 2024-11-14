@@ -1,14 +1,48 @@
-<nav class="navbar navbar-expand-lg navbar-secondary bg-secondary">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-        <!-- Login/Logout -->
-        {% if user.is_authenticated %}
-        <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}
-            <button class="btn btn-danger" type="submit">Logout</button>
-        </form>
-        <div class="alert alert-success">ログインしています。</div>
-        {% else %}
-        <a class="btn btn-primary" href="{% url 'accounts:login' %}">Login</a>
-        <div class="alert alert-warning">ログインしていません。</div>
-        {% endif %}
+        <a class="navbar-brand uniwars" href="{% url 'accounts:index' %}">me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link">About</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReminder" data-bs-toggle="dropdown" aira-expanded="false">
+                        Reminder
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownReminder">
+                        <li><a class="dropdown-item" href="#">全て</a></li>
+                        <li><a class="dropdown-item" href="#">課題リスト</a></li>
+                        <li><a class="dropdown-item" href="#">To-Doリスト</a></li>
+                        <li><a class="dropdown-item" href="#">持ち物リスト</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSettings" data-bs-toggle="dropdown" aria-haspopup="true" aira-expanded="false">
+                        Settings
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownSettings">
+                        <li><a class="dropdown-item" href="#">履修中教科</a></li>
+                        <li><a class="dropdown-item" href="#">パスワード変更</a></li>
+                        <li><a class="dropdown-item" href="#">オリジナルDiscordコマンド</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:logout_confirm' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
 </nav>
