@@ -46,15 +46,15 @@ async def on_message(message):
         pass
 
 
-@tree.command(name='active', description='Display active button.')
+@tree.command(name="active", description="Display active button.")
 async def test(interaction: discord.Interaction):
     await interaction.response.send_message("### アクティブボタンを表示しました！", ephemeral=True)
     await interaction.channel.send(view=ActiveButton())
 
 
 class ActiveButton(discord.ui.View):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, timeout=None):
+        super().__init__(timeout=timeout)
     
     @discord.ui.button(label="Become Active!", style=discord.ButtonStyle.green, row=4)
     async def pressedButton(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -80,6 +80,7 @@ def _associate_user(username, discord_id):
             cu = CustomUser.objects.all().get(discord_id=discord_id)
             cu.is_active = True
             cu.save()
+            return "### あなたのアカウントは無事アクティブ化されました。"
         except:
             return "### サインアップはしましたか？"
 
@@ -90,10 +91,11 @@ def _associate_user(username, discord_id):
         dun = DiscordUser.objects.all().get(discord_id=discord_id)
         dun.username = username
         dun.save()
+        return "### あなたのDiscordのユーザー名を更新しました。"
 
     # アクティブ化済みユーザーにはエラーメッセージ
     if cu.is_active:
-        return "### あなたのアカウントは無事アクティブ化されました。"
+        return "### あなたのアカウントは既にアクティブ化されています。"
 
 
 class Command(BaseCommand):
