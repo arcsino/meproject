@@ -1,14 +1,49 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Log in{% endblock %}
+
+{% block background %}bg-secondary{% endblock %}
+
+{% block breadcrumb %}
+
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb p-3 bg-light rounded-2">
+        <li class="breadcrumb-item"><a href="{% url 'accounts:index' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Login</li>
+    </ol>
+</nav>
+
+{% endblock %}
 
 {% block content %}
 
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+<div class="d-grid justify-content-center">
+    <div class="card" style="width: 24rem; margin: 3rem 0">
+        <div class="card-header">
+            <h2 class="fw-bold text-center m-0">Log in</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small class="form-text">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                <br><hr>
+                <div class="d-grid justify-content-center">
+                    <button type="submit" class="btn btn-primary text-center">Log in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

@@ -2,12 +2,34 @@
 
 {% block title %}Logout{% endblock %}
 
+{% block background %}bg-secondary{% endblock %}
+
+{% block breadcrumb %}
+
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb p-3 bg-light rounded-2">
+        <li class="breadcrumb-item"><a href="{% url 'accounts:index' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Logout</li>
+    </ol>
+</nav>
+
+{% endblock %}
+
 {% block content %}
 
-<h2>ログアウト</h2>
-<p>本当にログアウトしてもいいですか？</p>
-<form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}
-    <button class="btn btn-danger" type="submit">ログアウト</button>
-</form>
+<div class="d-grid justify-content-center">
+    <div class="card" style="width: 24rem; margin: 3rem 0">
+        <div class="card-header">
+            <h2 class="fw-bold text-center m-0">Log out</h2>
+        </div>
+        <div class="card-body">
+            <p>本当にログアウトしてもいいですか？</p>
+            <br><hr>
+            <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}
+                <button class="btn btn-danger" type="submit">Log out</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
