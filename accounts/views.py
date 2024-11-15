@@ -12,7 +12,7 @@ from .forms import SignupForm, LoginForm, PasswordChangeForm
 
 class IndexView(TemplateView):
     """ ホームビュー """
-    template_name = "index.html"
+    template_name = "accounts/index.html"
 
 
 class SignupView(CreateView):
