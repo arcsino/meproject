@@ -42,7 +42,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(
         _("username"),
-        max_length=150,
+        max_length=127,
         unique=True,
         help_text=_(
             "この項目は必須です。半角アルファベット、半角数字、@/./+/-/_ で150文字以下にしてください。"
@@ -93,7 +93,7 @@ class DiscordUserManager(models.Manager):
 class DiscordUser(models.Model):
     username = models.CharField(
         _("username"),
-        max_length=150,
+        max_length=127,
     )
     discord_id = models.SlugField(
         _("Discord ID"),

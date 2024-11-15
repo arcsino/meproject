@@ -10,11 +10,6 @@ from django.views.generic import TemplateView, CreateView
 from .forms import SignupForm, LoginForm, PasswordChangeForm
 
 
-class IndexView(TemplateView):
-    """ ホームビュー """
-    template_name = "accounts/index.html"
-
-
 class SignupView(CreateView):
     """ サインアップビュー """
     form_class = SignupForm
