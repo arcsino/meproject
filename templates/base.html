@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" crossorigin="anonymous">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -20,87 +20,19 @@
     <!-- Other CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body class="{% block background %}{% endblock %}" style="padding-top: 54px;">
+<body style="padding-top: 54px;">
     
-    <!-- Based '_navbar.html' -->
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'about:index' %}">
-                <span class="border-success border-bottom border-2 uniwars">me<span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <hr class="bg-transparent m-1">
-                    <li class="nav-item dropdown ms-2">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAbout" data-bs-toggle="dropdown" aria-haspopup="true" aira-expanded="false">
-                            About
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownAbout">
-                            <li><a class="dropdown-item" href="#">MEについて</a></li>
-                            <li><a class="dropdown-item" href="#">Contributorについて</a></li>
-                            <li><a class="dropdown-item" href="#">注意事項・利用規約</a></li>
-                        </ul>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown ms-2">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" data-bs-toggle="dropdown" aria-haspopup="true" aira-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
-                            <li><a class="dropdown-item" href="#">履修中教科</a></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:password_change' %}">パスワード変更</a></li>
-                            <li><a class="dropdown-item" href="#">オリジナルDiscordコマンド</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown ms-2">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReminder" data-bs-toggle="dropdown" aira-expanded="false">
-                            Reminder
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownReminder">
-                            <li><a class="dropdown-item" href="#">全て</a></li>
-                            <li><a class="dropdown-item" href="#">課題</a></li>
-                            <li><a class="dropdown-item" href="#">To-Do</a></li>
-                            <li><a class="dropdown-item" href="#">持ち物</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item ms-2">
-                        <a class="nav-link" href="{% url 'accounts:logout_confirm' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item ms-2">
-                        <a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a>
-                    </li>
-                    <li class="nav-item ms-2">
-                        <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
-                <hr class="bg-transparent">
-                {% if user.is_authenticated %}
-                <span class="navbar-text border border-success border-2 rounded px-2"><i class="bi bi-person-check me-1"></i>{{ user }}</span>
-                {% else %}
-                <span class="navbar-text border border-warning border-2 rounded px-2"><i class="bi bi-person-exclamation me-1"></i>{{ user }}</span>
-                {% endif %}
-                <hr class="bg-transparent">
-            </div>
-        </div>
-    </nav>
+    {% include '_navbar.html' %}
 
-    <!-- Based '_breadcrumb.html' -->
     {% block breadcrumb %}{% endblock %}
 
-    <!-- Based '_header.html' -->
     {% block header %}{% endblock %}
 
     {% block content %}{% endblock %}
 
-    <!-- Include '_footer.html '-->
     {% include '_footer.html' %}
 
     <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

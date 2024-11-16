@@ -1,65 +1,140 @@
-<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'about:index' %}">
             <span class="border-success border-bottom border-2 uniwars">me<span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <hr class="bg-transparent m-1">
-                <li class="nav-item dropdown ms-2">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAbout" data-bs-toggle="dropdown" aria-haspopup="true" aira-expanded="false">
-                        About
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownAbout">
-                        <li><a class="dropdown-item" href="#">MEについて</a></li>
-                        <li><a class="dropdown-item" href="#">Contributorについて</a></li>
-                        <li><a class="dropdown-item" href="#">注意事項・利用規約</a></li>
-                    </ul>
-                </li>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbar2Label">
+                    <span class="border-success border-bottom border-2 uniwars">me<span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column flex-lg-row">
+                <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 mb-auto">
+                    <li class="nav-item dropdown ms-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-info-circle me-2"></i>About
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-person-add me-2"></i>ユーザー登録について
+                                </a>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-bell me-2"></i>リマインダーの使い方
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-code-slash me-2"></i>MyDiscordコマンドの使い方
+                                </a>
+                            </li>
+                            <li>
+                            <hr class="dropdown-divider">
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-journal-check me-2"></i>利用規約
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-shield-check me-2"></i>プライバシーポリシー
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown ms-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person me-2"></i>Account
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if user.is_authenticated %}
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-bookmarks me-2"></i>履修中の教科
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:password_change' %}">
+                                    <i class="bi bi-key me-2"></i>パスワード変更
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-code-slash me-2"></i>MyDiscordコマンド
+                                </a>
+                            </li>
+                            <li>
+                            <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:logout_confirm' %}">
+                                    <i class="bi bi-door-open pe-2"></i>ログアウト
+                                </a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:login' %}">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>ログイン
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:signup' %}">
+                                    <i class="bi bi-person-add me-2"></i>サインアップ
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown ms-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell me-2"></i>Reminder
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-list-check me-2"></i>全部
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-pencil-square me-2"></i>課題リスト
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-check2-circle me-2"></i>To-Doリスト
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-backpack me-2"></i>持ち物リスト
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
                 {% if user.is_authenticated %}
-                <li class="nav-item dropdown ms-2">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" data-bs-toggle="dropdown" aria-haspopup="true" aira-expanded="false">
-                        Account
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
-                        <li><a class="dropdown-item" href="#">履修中教科</a></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:password_change' %}">パスワード変更</a></li>
-                        <li><a class="dropdown-item" href="#">オリジナルDiscordコマンド</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown ms-2">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReminder" data-bs-toggle="dropdown" aira-expanded="false">
-                        Reminder
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownReminder">
-                        <li><a class="dropdown-item" href="#">全て</a></li>
-                        <li><a class="dropdown-item" href="#">課題</a></li>
-                        <li><a class="dropdown-item" href="#">To-Do</a></li>
-                        <li><a class="dropdown-item" href="#">持ち物</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item ms-2">
-                    <a class="nav-link" href="{% url 'accounts:logout_confirm' %}">Logout</a>
-                </li>
+                <ul class="navbar-nav align-items-center border border-success border-2 px-2 py-3 py-lg-0">
+                    <li><i class="bi bi-person-check pe-2"></i>{{ user }}</li>
+                </ul>
                 {% else %}
-                <li class="nav-item ms-2">
-                    <a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a>
-                </li>
-                <li class="nav-item ms-2">
-                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-                </li>
+                <ul class="navbar-nav align-items-center border border-warning border-2 px-2 py-3 py-lg-0">
+                    <li><i class="bi bi-person-exclamation pe-2"></i>{{ user }}</li>
+                </ul>
                 {% endif %}
-            </ul>
-            <hr class="bg-transparent">
-            {% if user.is_authenticated %}
-            <span class="navbar-text border border-success border-2 rounded px-2"><i class="bi bi-person-check me-1"></i>{{ user }}</span>
-            {% else %}
-            <span class="navbar-text border border-warning border-2 rounded px-2"><i class="bi bi-person-exclamation me-1"></i>{{ user }}</span>
-            {% endif %}
-            <hr class="bg-transparent">
+            </div>
         </div>
     </div>
 </nav>
