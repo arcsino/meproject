@@ -102,3 +102,6 @@ class DiscordUser(models.Model):
     )
 
     objects = DiscordUserManager()
+
+    def __str__(self):
+        return self.username

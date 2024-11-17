@@ -13,7 +13,7 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
     )
     search_fields = ("username", "discord_id")
-    ordering = ("username",)
+    ordering = ("id",)
     fieldsets = (("ユーザー情報", {"fields": (
         "username",
         "discord_id",
@@ -32,7 +32,7 @@ class CustomUserAdmin(UserAdmin):
 
 class DiscordUserAdmin(admin.ModelAdmin):
     list_display = ("username", "discord_id",)
-    ordering = ("username",)
+    ordering = ("id",)
     fieldsets = (("ユーザー情報", {"fields": (
         "username",
         "discord_id",
