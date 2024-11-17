@@ -36,8 +36,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'about.apps.AboutConfig',
     'accounts.apps.AccountsConfig',
+    'notice.apps.NoticeConfig',
+    'reminder.apps.ReminderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,7 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/about/index/'
+LOGIN_REDIRECT_URL = '/index/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # DiscordBot TOKEN
