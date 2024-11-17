@@ -60,3 +60,6 @@
         filter: hue-rotate(60deg);
     }
 }
+.myimage {
+    object-fit: cover;
+}
