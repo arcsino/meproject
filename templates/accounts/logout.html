@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block breadcrumb %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb p-3 bg-light rounded-2">
+        <li class="breadcrumb-item"><a href="{% url 'about:index' %}">ホーム</a></li>
+        <li class="breadcrumb-item active" aria-current="page">ログアウト</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container marketing h-100">
+    <div class="row featurette justify-content-center text-center mb-5">
+        <div class="col-md-10 align-self-center">
+            <h2 class="featurette-heading lh-1 my-5">
+                <span class="border-bottom border-success border-2">ログアウト</span>
+            </h2>
+            <p class="text-danger mb-5">本当にログアウトしてもいいですか？</p>
+            <a class="btn btn-primary mb-3" href="{% url 'about:index' %}">
+                <i class="bi bi-house pe-2"></i>Back to home
+            </a>
+            <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}
+                <button class="btn btn-danger" type="submit">
+                    <i class="bi bi-door-open pe-2"></i>Log out
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
