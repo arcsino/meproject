@@ -7,6 +7,8 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+<!-- carousel -->
+
 <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -19,8 +21,7 @@
             <div class="container">
                 <div class="carousel-caption text-start">
                     <p class="h1 uniwars">More Efficiently.</p>
-                    <p class="opacity-75 uniwars">Eliminate waste through efficient study and improve your daily life.</p>
-                    <p><a class="btn btn-lg btn-success border border-light border-1" href="{% url 'accounts:signup' %}">Sign up today</a></p>
+                    <p class="opacity-75 pb-5 uniwars">Eliminate waste through efficient study and improve your daily life.</p>
                 </div>
             </div>
         </div>
@@ -29,8 +30,7 @@
             <div class="container">
                 <div class="carousel-caption">
                     <p class="h1 uniwars">Shared reminder.</p>
-                    <p class="opacity-75 uniwars">By sharing, there is no problem even if you forget to set a reminder.</p>
-                    <p><a class="btn btn-lg btn-warning border border-dark border-1" href="#">Read more</a></p>
+                    <p class="opacity-75 pb-5 uniwars">By sharing, there is no problem even if you forget to set the reminder.</p>
                 </div>
             </div>
         </div>
@@ -39,8 +39,7 @@
             <div class="container">
                 <div class="carousel-caption text-end">
                     <p class="h1 uniwars">Works with Discord API.</p>
-                    <p class="opacity-75 uniwars">Discord is used by everyone, and there are many benefits to be gained by linking it together..</p>
-                    <p><a class="btn btn-lg btn-primary border border-light border-1" href="#">See the code</a></p>
+                    <p class="opacity-75 pb-5 uniwars">Discord is used by everyone, and there are many benefits to be gained by linking it together.</p>
                 </div>
             </div>
         </div>
@@ -54,56 +53,131 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-<div class="container marketing mt-1">
-    <div class="row featurette py-4">
-        <div class="col-md-7">
-            <h2 class="featurette-heading fw-normal lh-1">MEについて</h2><hr>
-            <p class="lead ms-2">MEとは、"More Efficiently"の略です。<br>その名の通り、勉強を"より効率的に"するためのプロジェクトです。</p>
-            <p class="lead ms-2">プロジェクトの目的は主に以下の２つです。</p>
-            <ul>
-                <li>みんながより効率的に勉強をできるようにするため</li>
-                <li>勉強にやる気のない自分を奮い立たせるため</li>
-            </ul>
-            <p class="lead ms-2">この2つを目的としています。</p>
-        </div>
-        <div class="col-md-5">
-            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
-        </div>
-    </div>
-</div>
-<div class="bg-light">
-    <div class="container marketing bg-light">
-        <div class="row featurette py-4">
-            <div class="col-md-7 order-2">
-                <h2 class="featurette-heading fw-normal lh-1">MEで出来ること</h2><hr>
-                <p class="lead ms-2">現在このプロジェクト内には、以下のアプリがあります。</p>
-                <div class="feature col">
-                    <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient rounded-3 fs-2 mb-3">
-                        <i class="bi bi-person p-2"></i>
+
+<!-- carousel -->
+
+<!-- Notice List -->
+
+<div class="container">
+    <div class="row align-items-center justify-content-center py-4">
+        <div class="col-12 col-lg-7">
+            <h2 class="fw-normal lh-1">お知らせ</h2><hr class="mb-4">
+            <ul class="list-group">
+                {% for new in notice %}
+                <li href="#" class="list-group-item d-flex gap-3 py-3" aria-current="true">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h6 class="mb-0">{{ new.title }}</h6>
+                            <p class="mb-0 opacity-75">{{ new.content }}</p>
+                        </div>
+                        <small class="opacity-50 text-nowrap">{{ new.date_created }}</small>
                     </div>
-                    <h3 class="fs-2 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                    <a href="#" class="icon-link">
-                        Call to action
-                        <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
-                    </a>
-                  </div>
+                </li>
+                {% empty %}
+                <li href="#" class="list-group-item d-flex gap-3 py-3" aria-current="true">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h6 class="mb-0">お知らせはありません。</h6>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Notice List -->
+
+<!-- main contents -->
+
+<div class="bg-light mt-1">
+    <div class="container bg-light">
+        <div class="row py-4">
+            <div class="col-md-7 order-md-2">
+                <h2 class="fw-normal lh-1">MEについて</h2><hr>
+                <p class="lead">MEとは、"More Efficiently"の略です。</p>
+                <p class="lead">その名の通り、勉強を"より効率的に"するためのプロジェクトです。</p>
             </div>
-            <div class="col-md-5 order-1">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
+            <div class="col-md-5 order-md-1">
+                <img src="{% static 'images/photo1.png' %}" class="myimage" width="100%">
             </div>
         </div>
     </div>
 </div>
-<div class="container marketing">
-    <div class="row featurette py-4">
+
+<div class="container">
+    <div class="row py-4">
         <div class="col-md-7">
-            <h2 class="featurette-heading fw-normal lh-1"></h2>
-            <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+            <h2 class="fw-normal lh-1">MEの目的</h2><hr>
+            <p class="lead">このプロジェクトの目的は主に以下の２つです。</p>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">皆がより効率的に勉強を出来るようにするため</li>
+                <li class="list-group-item">勉強にやる気のない自分を奮い立たせるため</li>
+            </ul>
         </div>
         <div class="col-md-5">
-            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
+            <img src="{% static 'images/photo2.png' %}" class="myimage" width="100%">
         </div>
     </div>
 </div>
+
+<div class="bg-light">
+    <div class="container bg-light">
+        <div class="row py-4">
+            <div class="col-md-6 order-md-2">
+                <h2 class="fw-normal lh-1">MEで出来ること</h2><hr>
+                <p class="lead">現在プロジェクト内には以下のアプリケーションがあります。</p>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item">Accounts</li>
+                    <li class="list-group-item">Reminder</li>
+                </ul>
+                <div class="row row-cols-2">
+                    <div class="col">
+                        <div class="d-inline-flex align-items-center justify-content-center text-bg-success rounded-3 fs-2 mb-2 p-2">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h4 class="fs-2">Accounts</h4>
+                        <p>ログイン機能を実装するためのアプリ。部外者が他のアプリに干渉することを防ぎます。</p>
+                    </div>
+                    <div class="col">
+                        <div class="d-inline-flex align-items-center justify-content-center text-bg-success rounded-3 fs-2 mb-2 p-2">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <h4 class="fs-2">Reminder</h4>
+                        <p>皆で設定したリマインダーを特定の時間で通知することで、課題や持ってくる物を忘れることを防ぎます。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 order-md-1">
+                <img src="{% static 'images/photo3.png' %}" class="myimage" width="100%" >
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row py-4">
+        <div class="col-md-7 pb-4">
+            <h2 class="fw-normal lh-1">ユーザー登録について</h2><hr>
+            <p class="lead">サインアップする前に必ず、利用規約を読んでください。サインアップした時点で、利用規約に同意したものとみなします。</p>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-person-add me-2"></i>サインアップについて
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-journal-check me-2"></i>利用規約
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-shield-check me-2"></i>プライバシーポリシー
+                </a>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <img src="{% static 'images/photo4.png' %}" class="myimage" width="100%">
+        </div>
+    </div>
+</div>
+
+<!-- main contents -->
 {% endblock %}
