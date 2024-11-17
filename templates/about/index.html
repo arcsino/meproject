@@ -83,6 +83,41 @@
                 </li>
                 {% endfor %}
             </ul>
+            <!-- ページネーション処理 -->
+            {% if is_paginated %}
+            <div class="d-flex justify-content-end">
+                <ul class="pagination mt-4">
+                    <!-- 前ページへのリンク -->
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- ページ数表示 -->
+                    {% for page_num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == page_num %}
+                        <li class="page-item active">
+                            <a class="page-link" href="#">{{ page_num }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- 次のページへのリンク -->
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -96,8 +131,8 @@
         <div class="row py-4">
             <div class="col-md-7 order-md-2">
                 <h2 class="fw-normal lh-1">MEについて</h2><hr>
-                <p class="lead">MEとは、"More Efficiently"の略です。</p>
-                <p class="lead">その名の通り、勉強を"より効率的に"するためのプロジェクトです。</p>
+                <p class="">MEとは、"More Efficiently"の略です。</p>
+                <p class="">その名の通り、勉強を"より効率的に"するためのプロジェクトです。</p>
             </div>
             <div class="col-md-5 order-md-1">
                 <img src="{% static 'images/photo1.png' %}" class="myimage" width="100%">
@@ -110,7 +145,7 @@
     <div class="row py-4">
         <div class="col-md-7">
             <h2 class="fw-normal lh-1">MEの目的</h2><hr>
-            <p class="lead">このプロジェクトの目的は主に以下の２つです。</p>
+            <p class="">このプロジェクトの目的は主に以下の２つです。</p>
             <ul class="list-group mb-4">
                 <li class="list-group-item">皆がより効率的に勉強を出来るようにするため</li>
                 <li class="list-group-item">勉強にやる気のない自分を奮い立たせるため</li>
@@ -125,9 +160,9 @@
 <div class="bg-light">
     <div class="container bg-light">
         <div class="row py-4">
-            <div class="col-md-6 order-md-2">
+            <div class="col-md-7 order-md-2">
                 <h2 class="fw-normal lh-1">MEで出来ること</h2><hr>
-                <p class="lead">現在プロジェクト内には以下のアプリケーションがあります。</p>
+                <p class="">現在プロジェクト内には以下のアプリケーションがあります。</p>
                 <ul class="list-group mb-4">
                     <li class="list-group-item">Accounts</li>
                     <li class="list-group-item">Reminder</li>
@@ -149,7 +184,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 order-md-1">
+            <div class="col-md-5 order-md-1">
                 <img src="{% static 'images/photo3.png' %}" class="myimage" width="100%" >
             </div>
         </div>
@@ -160,7 +195,7 @@
     <div class="row py-4">
         <div class="col-md-7 pb-4">
             <h2 class="fw-normal lh-1">ユーザー登録について</h2><hr>
-            <p class="lead">サインアップする前に必ず、利用規約を読んでください。サインアップした時点で、利用規約に同意したものとみなします。</p>
+            <p class="">サインアップする前に必ず、利用規約を読んでください。サインアップした時点で、利用規約に同意したものとみなします。</p>
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action">
                     <i class="bi bi-person-add me-2"></i>サインアップについて
