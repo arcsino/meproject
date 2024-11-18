@@ -4,18 +4,18 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Category(models.Model):
-    title = models.CharField(
+    name = models.CharField(
         _("カテゴリー名"),
         max_length=63,
         unique=True,
     )
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Subject(models.Model):
-    title = models.CharField(
+    name = models.CharField(
         _("教科名"),
         max_length=63,
         unique=True,
@@ -25,7 +25,7 @@ class Subject(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Memo(models.Model):
@@ -49,6 +49,7 @@ class Memo(models.Model):
     detail = models.TextField(
         _("詳細"),
         blank=True,
+        null=True,
         help_text=_(
             "詳しい説明などはこちらに。空欄でも可。"
         ),
