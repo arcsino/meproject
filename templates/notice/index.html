@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 
 {% load static %}
 
@@ -61,7 +61,7 @@
 <div class="container">
     <div class="row align-items-center justify-content-center py-4">
         <div class="col-12 col-lg-7">
-            <h2 class="fw-normal lh-1">お知らせ</h2><hr class="mb-4">
+            <h2 class="text-center text-md-start fw-normal lh-1">お知らせ</h2><hr class="mb-4">
             <ul class="list-group">
                 {% for new in notice %}
                 <li href="#" class="list-group-item d-flex gap-3 py-3" aria-current="true">
@@ -85,8 +85,8 @@
             </ul>
             <!-- ページネーション処理 -->
             {% if is_paginated %}
-            <div class="d-flex justify-content-end">
-                <ul class="pagination mt-4">
+            <nav aria-label="pagination">
+                <ul class="pagination justify-content-end mt-4">
                     <!-- 前ページへのリンク -->
                     {% if page_obj.has_previous %}
                     <li class="page-item">
@@ -116,7 +116,7 @@
                     </li>
                     {% endif %}
                 </ul>
-            </div>
+            </nav>
             {% endif %}
         </div>
     </div>
