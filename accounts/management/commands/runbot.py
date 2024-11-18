@@ -1,7 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
-from accounts.models import CustomUser, DiscordUser
+from accounts.models import DiscordUser
+from django.contrib.auth import get_user_model
 from asgiref.sync import sync_to_async
 
 import discord
@@ -13,6 +14,8 @@ import glob
 
 from .bot.commands import print_commands, find_commands
 
+
+CustomUser = get_user_model()
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
