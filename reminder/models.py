@@ -28,7 +28,7 @@ class Subject(models.Model):
         return self.name
 
 
-class Memo(models.Model):
+class Schedule(models.Model):
     category = models.ForeignKey(
         Category,
         verbose_name="カテゴリー名",
@@ -58,9 +58,23 @@ class Memo(models.Model):
         _("締め切り日"),
         default=timezone.now,
     )
+    created_by = models.CharField(
+        _("作成者"),
+        max_length=63,
+        default=_("unknown")
+    )
+    created_at = models.DateTimeField(
+        _("作成日時"),
+        default=timezone.now,
+    )
+    updated_by = models.CharField(
+        _("編集者"),
+        max_length=63,
+        default=_("unknown"),
+    )
     updated_at = models.DateTimeField(
         _("変更日時"),
-        auto_now=True,
+        default=timezone.now,
     )
 
     def __str__(self):

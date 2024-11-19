@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
+from .models import Schedule
 from . import mixins
 
 
 class MonthCalendar(LoginRequiredMixin, mixins.MonthCalendarMixin, generic.TemplateView):
     """月間カレンダーを表示するビュー"""
     template_name = 'reminder/month.html'
+    model = Schedule
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -17,6 +19,7 @@ class MonthCalendar(LoginRequiredMixin, mixins.MonthCalendarMixin, generic.Templ
 class WeekCalendar(LoginRequiredMixin, mixins.WeekCalendarMixin, generic.TemplateView):
     """週間カレンダーを表示するビュー"""
     template_name = 'reminder/week.html'
+    model = Schedule
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -28,6 +31,7 @@ class WeekCalendar(LoginRequiredMixin, mixins.WeekCalendarMixin, generic.Templat
 class DayCalendar(LoginRequiredMixin, mixins.DayCalendarMixin, generic.TemplateView):
     """日間カレンダーを表示するビュー"""
     template_name = 'reminder/day.html'
+    model = Schedule
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
