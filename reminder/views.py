@@ -38,3 +38,18 @@ class DayCalendar(LoginRequiredMixin, mixins.DayCalendarMixin, generic.TemplateV
         calendar_context = self.get_day_calendar()
         context.update(calendar_context)
         return context
+
+
+class HomeworkListView(LoginRequiredMixin, generic.TemplateView):
+    """課題リストを表示するビュー"""
+    template_name = 'reminder/homework.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        hw = '課題'
+        homework_context = {
+            'breadcrumb': 'Reminder - 課題リスト',
+            'hw_schedules': Schedule.objects.filter(category__name__contains=hw).order_by('deadline'),
+        }
+        context.update(homework_context)
+        return context
