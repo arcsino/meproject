@@ -16,16 +16,40 @@ class SignupView(CreateView):
     success_url = reverse_lazy("accounts:login")
     template_name = "accounts/signup.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        signup_context = {
+            "breadcrumb": "Account - サインアップ",
+        }
+        context.update(signup_context)
+        return context
+
 
 class LoginView(LoginView):
     """ログインビュー"""
     form_class = LoginForm
     template_name = 'accounts/login.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        signup_context = {
+            "breadcrumb": "Account - ログイン",
+        }
+        context.update(signup_context)
+        return context
+
 
 class LogoutConfirmView(LoginRequiredMixin, TemplateView):
     """ログアウト確認ビュー"""
     template_name = 'accounts/logout.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        signup_context = {
+            "breadcrumb": "Account - ログアウト",
+        }
+        context.update(signup_context)
+        return context
 
 
 class LogoutView(LoginRequiredMixin, LogoutView):
@@ -39,7 +63,23 @@ class PasswordChangeView(PasswordChangeView):
     success_url = reverse_lazy("accounts:password_change_done")
     template_name = 'accounts/password_change_form.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        signup_context = {
+            "breadcrumb": "Account - パスワード変更",
+        }
+        context.update(signup_context)
+        return context
+
 
 class PasswordChangeDoneView(PasswordChangeDoneView):
     """パスワード変更済ビュー"""
     template_name = 'accounts/password_change_done.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        signup_context = {
+            "breadcrumb": "Account - パスワード変更",
+        }
+        context.update(signup_context)
+        return context

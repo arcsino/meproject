@@ -6,7 +6,7 @@ from collections import deque
 
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
-    first_weekday = 0  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
+    first_weekday = 6  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
     week_names = ['月', '火', '水', '木', '金', '土', '日']  # これは、月曜日から書くことを想定します。['Mon', 'Tue'...
 
     def setup_calendar(self):
@@ -103,5 +103,41 @@ class WeekCalendarMixin(BaseCalendarMixin):
             'week_names': self.get_week_names(),
             'week_first': first,
             'week_last': last,
+        }
+        return calendar_data
+
+
+class DayCalendarMixin(BaseCalendarMixin):
+    """日間カレンダーの機能を提供するMixin"""
+
+    def get_week_name(self, day):
+        week_names = deque(self.week_names)
+        week_names.rotate(-self.first_weekday)
+        week_name = day.weekday() + 1
+        if week_name == 7:
+            week_name = 0
+        return week_names[week_name]
+    
+    def get_current_day(self):
+        """現在の日を返す"""
+        month = self.kwargs.get('month')
+        year = self.kwargs.get('year')
+        day = self.kwargs.get('day')
+        if month and year and day:
+            day = datetime.date(year=int(year), month=int(month), day=int(day))
+        else:
+            day = datetime.date.today()
+        return day
+
+    def get_day_calendar(self):
+        """日間カレンダー情報の入った辞書を返す"""
+        self.setup_calendar()
+        current_day = self.get_current_day()
+        calendar_data = {
+            'now': datetime.date.today(),
+            'day_current': current_day,
+            'day_previous': current_day - datetime.timedelta(days=1),
+            'day_next': current_day + datetime.timedelta(days=1),
+            'week_name': self.get_week_name(current_day),
         }
         return calendar_data
