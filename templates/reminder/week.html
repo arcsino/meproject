@@ -2,17 +2,8 @@
 
 {% block title %}Week{% endblock %}
 
-{% block breadcrumb %}
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-    <ol class="breadcrumb p-3 bg-light rounded-2">
-        <li class="breadcrumb-item"><a href="{% url 'notice:index' %}">ホーム</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Week</li>
-    </ol>
-</nav>
-{% endblock %}
-
 {% block content %}
-
+{% include 'base/_breadcrumb.html' %}
 <nav aria-label="pagination">
     <ul class="pagination justify-content-center">
         <li class="page-item">
@@ -26,14 +17,14 @@
         </li>
     </ul>
 </nav>
-<div class="container">
+<div class="container h-100">
     <div class="row justify-content-center text-center mb-5">
-        <div class="col-md-12 align-self-center">
+        <div class="col-md-12 align-self-center table-responsive">
             <table class="table table-bordered">
                 <thead class="table-secondary">
                     <tr>
                         {% for w in week_names %}
-                        <th>{{ w }}</th>
+                        <th style="min-width: 8rem;">{{ w }}</th>
                         {% endfor %}
                     </tr>
                 </thead>
@@ -49,13 +40,57 @@
                                 {% if week_first.month != day.month %}
                                     {{ day | date:"m/d" }}
                                 {% else %}
-                                    {{ day.day }}<span class="me-4">
+                                    {{ day.day }}
                                 {% endif %}
-                                </div><!-- <hr class="m-0"> -->
-                                <div class="my-5"> </div>
-                                <div class="py-5"> </div>
-                                <div class="my-5"> </div>
-                                <div class="py-2"> </div>
+                                <hr class="border-0">
+
+                                {% if hw_schedules %}
+                                    {% for hw_s in hw_schedules %}
+                                        {% if hw_s.deadline == day %}
+                                        <div class="card border-danger my-2">
+                                            <div class="card-header bg-danger text-white">
+                                                <i class="bi bi-pencil-square me-2"></i>課題
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title fw-bold">{{ hw_s.subject.name }}</h5>
+                                                <p class="card-text">{{ hw_s.title }}</p>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+    
+                                {% if todo_schedules %}
+                                    {% for todo_s in todo_schedules %}
+                                        {% if todo_s.deadline == day %}
+                                        <div class="card border-success my-2">
+                                            <div class="card-header bg-success text-white">
+                                                <i class="bi bi-check2-circle me-2"></i>To-Do
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title fw-bold">{{ todo_s.subject.name }}</h5>
+                                                <p class="card-text">{{ todo_s.title }}</p>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+    
+                                {% if item_schedules %}
+                                    {% for item_s in item_schedules %}
+                                        {% if item_s.deadline == day %}
+                                        <div class="card border-primary my-2">
+                                            <div class="card-header bg-primary text-white">
+                                                <i class="bi bi-backpack me-2"></i>持ち物
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title fw-bold">{{ item_s.subject.name }}</h5>
+                                                <p class="card-text">{{ item_s.title }}</p>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
