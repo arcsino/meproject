@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Schedule Detail{% endblock %}
+
+{% block content %}
+<!-- breadcrumb -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb p-3 bg-light rounded-2">
+        <li class="breadcrumb-item"><a href="{% url 'notice:index' %}" class="link-success">ホーム</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'reminder:schedule_list' %}" class="link-success">Reminder - スケジュール一覧</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb }}</li>
+    </ol>
+</nav>
+<!-- breadcrumb -->
+
+<!-- detail -->
+<div class="container">
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-10 align-self-center">
+            <h1 class="text-center lh-1 my-5">
+                <span class="border-bottom border-success border-2">スケジュールの詳細</span>
+            </h1>
+            {% if object.category.name == hw %}
+            <div class="card border-danger my-3">
+                <div class="card-header bg-danger text-white">
+                    <i class="bi bi-pencil-square me-2"></i>課題
+                </div>
+            {% endif %}
+            {% if object.category.name == todo %}
+            <div class="card border-success my-3">
+                <div class="card-header bg-success text-white">
+                    <i class="bi bi-check2-circle me-2"></i>To-Do
+                </div>
+            {% endif %}
+            {% if object.category.name == item %}
+            <div class="card border-primary my-3">
+                <div class="card-header bg-primary text-white">
+                    <i class="bi bi-backpack me-2"></i>持ち物
+                </div>
+            {% endif %}
+                <div class="card-body">
+                    <div class="row card-text">
+                        <div class="col-auto">教科：</div>
+                        <div class="col">{{ object.subject.name }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">タイトル：</div>
+                        <div class="col">{{ object.title }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">詳細：</div>
+                        <div class="col">{{ object.detail }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">締め切り日：</div>
+                        <div class="col">{{ object.deadline }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">作成日時：</div>
+                        <div class="col">{{ object.created_at }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">変更日時：</div>
+                        <div class="col">{{ object.updated_at }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">スケジュールID：</div>
+                        <div class="col">{{ object.pk }}</div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="btn-group">
+                            {% if object.category.name == hw %}
+                            <a href="#" class="btn btn-sm btn-outline-danger">編集する</a>
+                            {% endif %}
+                            {% if object.category.name == todo %}
+                            <a href="#" class="btn btn-sm btn-outline-success">編集する</a>
+                            {% endif %}
+                            {% if object.category.name == item %}
+                            <a href="#" class="btn btn-sm btn-outline-primary">編集する</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail -->
+{% endblock %}

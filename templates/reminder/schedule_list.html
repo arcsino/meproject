@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 
-{% block title %}All{% endblock %}
+{% block title %}Schedule List{% endblock %}
 
 {% block content %}
 {% include 'base/_breadcrumb.html' %}
@@ -8,7 +8,7 @@
     <div class="row justify-content-center pb-5">
         <div class="col-md-10 align-self-center">
             <h1 class="text-center lh-1 my-5">
-                <span class="border-bottom border-success border-2">全リスト</span>
+                <span class="border-bottom border-success border-2">スケジュール一覧</span>
             </h1>
             <div class="card">
                 <div class="card-header">
@@ -37,7 +37,7 @@
                                         <h5 class="card-title fw-bold">{{ hw_s.subject.name }}</h5>
                                         <p class="card-text">{{ hw_s.title }}</p>
                                         {% if hw_s.detail %}
-                                        <div class="accordion" id="accordionExample">
+                                        <div class="accordion mb-3" id="accordionExample">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header">
                                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ hw_s.pk }}" aria-expanded="false" aria-controls="collapse{{ hw_s.pk }}">
@@ -50,6 +50,10 @@
                                             </div>
                                         </div>
                                         {% endif %}
+                                        <div class="btn-group">
+                                            <a href="{% url 'reminder:schedule_detail' hw_s.pk %}" class="btn btn-sm btn-outline-danger">もっと見る</a>
+                                            <a href="#" class="btn btn-sm btn-outline-danger">編集する</a>
+                                        </div>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -68,7 +72,7 @@
                                         <h5 class="card-title fw-bold">{{ todo_s.subject.name }}</h5>
                                         <p class="card-text">{{ todo_s.title }}</p>
                                         {% if todo_s.detail %}
-                                        <div class="accordion" id="accordionExample">
+                                        <div class="accordion mb-3" id="accordionExample">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header">
                                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ todo_s.pk }}" aria-expanded="false" aria-controls="collapse{{ todo_s.pk }}">
@@ -81,6 +85,10 @@
                                             </div>
                                         </div>
                                         {% endif %}
+                                        <div class="btn-group">
+                                            <a href="{% url 'reminder:schedule_detail' todo_s.pk %}" class="btn btn-sm btn-outline-success">もっと見る</a>
+                                            <a href="#" class="btn btn-sm btn-outline-success">編集する</a>
+                                        </div>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -99,7 +107,7 @@
                                         <h5 class="card-title fw-bold">{{ item_s.subject.name }}</h5>
                                         <p class="card-text">{{ item_s.title }}</p>
                                         {% if item_s.detail %}
-                                        <div class="accordion" id="accordionExample">
+                                        <div class="accordion mb-3" id="accordionExample">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header">
                                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ item_s.pk }}" aria-expanded="false" aria-controls="collapse{{ item_s.pk }}">
@@ -112,6 +120,10 @@
                                             </div>
                                         </div>
                                         {% endif %}
+                                        <div class="btn-group">
+                                            <a href="{% url 'reminder:schedule_detail' item_s.pk %}" class="btn btn-sm btn-outline-primary">もっと見る</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">編集する</a>
+                                        </div>
                                     </div>
                                 </div>
                                 {% endfor %}
