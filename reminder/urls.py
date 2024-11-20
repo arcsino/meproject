@@ -13,9 +13,7 @@ urlpatterns = [
     path('day/', views.DayCalendar.as_view(), name='day'),
     path('day/<int:year>/<int:month>/<int:day>/', views.DayCalendar.as_view(), name='day'),
 
-    path('schedules/', views.AllList.as_view(), name='all'),
-    path('schedules/all/', views.AllList.as_view(), name='all'),
-    path('schedules/homework/', views.HomeworkList.as_view(), name='homework'),
-    path('schedules/todo/', views.ToDoList.as_view(), name='todo'),
-    path('schedules/item/', views.ItemList.as_view(), name='item'),
+    path('schedules/', views.ScheduleList.as_view(), name='schedule_list'),
+    path('schedules/list/', views.ScheduleList.as_view(), name='schedule_list'),
+    path('schedules/detail/<int:pk>/', views.ScheduleDetail.as_view(), name='schedule_detail'),
 ]

@@ -40,9 +40,9 @@ class DayCalendar(LoginRequiredMixin, mixins.DayCalendarMixin, generic.TemplateV
         return context
 
 
-class AllList(LoginRequiredMixin, generic.TemplateView):
-    """全リストを表示するビュー"""
-    template_name = 'reminder/all.html'
+class ScheduleList(LoginRequiredMixin, generic.TemplateView):
+    """スケジュール一覧を表示するビュー"""
+    template_name = 'reminder/schedule_list.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -50,7 +50,7 @@ class AllList(LoginRequiredMixin, generic.TemplateView):
         todo = 'To-Do'
         item = '持ち物'
         homework_context = {
-            'breadcrumb': 'Reminder - 全リスト',
+            'breadcrumb': 'Reminder - スケジュール一覧',
             'hw_schedules': Schedule.objects.filter(category__name__contains=hw).order_by('deadline'),
             'todo_schedules': Schedule.objects.filter(category__name__contains=todo).order_by('deadline'),
             'item_schedules': Schedule.objects.filter(category__name__contains=item).order_by('deadline'),
@@ -59,46 +59,18 @@ class AllList(LoginRequiredMixin, generic.TemplateView):
         return context
 
 
-class HomeworkList(LoginRequiredMixin, generic.TemplateView):
-    """課題リストを表示するビュー"""
-    template_name = 'reminder/homework.html'
+class ScheduleDetail(LoginRequiredMixin, generic.DetailView):
+    """スケジュールの詳細を表示するビュー"""
+    template_name = 'reminder/schedule_detail.html'
+    model = Schedule
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        hw = '課題'
         homework_context = {
-            'breadcrumb': 'Reminder - 課題リスト',
-            'hw_schedules': Schedule.objects.filter(category__name__contains=hw).order_by('deadline'),
+            'breadcrumb': 'スケジュールの詳細',
+            'hw': '課題',
+            'todo': 'To-Do',
+            'item': '持ち物',
         }
         context.update(homework_context)
-        return context
-
-
-class ToDoList(LoginRequiredMixin, generic.TemplateView):
-    """To-Doリストを表示するビュー"""
-    template_name = 'reminder/todo.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        todo = 'To-Do'
-        todo_context = {
-            'breadcrumb': 'Reminder - To-Doリスト',
-            'todo_schedules': Schedule.objects.filter(category__name__contains=todo).order_by('deadline'),
-        }
-        context.update(todo_context)
-        return context
-
-
-class ItemList(LoginRequiredMixin, generic.TemplateView):
-    """持ち物リストを表示するビュー"""
-    template_name = 'reminder/item.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        item = '持ち物'
-        item_context = {
-            'breadcrumb': 'Reminder - 持ち物リスト',
-            'item_schedules': Schedule.objects.filter(category__name__contains=item).order_by('deadline'),
-        }
-        context.update(item_context)
         return context
