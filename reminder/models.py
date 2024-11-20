@@ -6,9 +6,12 @@ from django.utils.translation import gettext_lazy as _
 class Category(models.Model):
     name = models.CharField(
         _("カテゴリー名"),
-        max_length=63,
+        max_length=64,
         unique=True,
     )
+    bs_color = models.CharField(_("Boostrap Color"), max_length=32)
+    bs_icon = models.CharField(_("Bootstrap Icon"), max_length=32)
+    channel_id = models.SlugField(_("チャンネルID"), max_length=20)
 
     def __str__(self):
         return self.name
@@ -17,7 +20,7 @@ class Category(models.Model):
 class Subject(models.Model):
     name = models.CharField(
         _("教科名"),
-        max_length=63,
+        max_length=64,
         unique=True,
     )
     grade = models.IntegerField(
@@ -41,7 +44,7 @@ class Schedule(models.Model):
     )
     title = models.CharField(
         _("タイトル名"),
-        max_length=63,
+        max_length=64,
         help_text=_(
             "課題プリント、中間テスト、証明写真など"
         ),
@@ -56,11 +59,13 @@ class Schedule(models.Model):
     )
     deadline = models.DateField(
         _("締め切り日"),
-        default=timezone.now,
+        help_text=_(
+            "20XX-XX-XX"
+        ),
     )
     created_by = models.CharField(
         _("作成者"),
-        max_length=63,
+        max_length=64,
         default=_("unknown")
     )
     created_at = models.DateTimeField(
@@ -69,7 +74,7 @@ class Schedule(models.Model):
     )
     updated_by = models.CharField(
         _("編集者"),
-        max_length=63,
+        max_length=64,
         default=_("unknown"),
     )
     updated_at = models.DateTimeField(

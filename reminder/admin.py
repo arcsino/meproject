@@ -8,9 +8,15 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ("id",)
     fieldsets = (("カテゴリーの情報", {"fields": (
         "name",
+        "bs_color",
+        "bs_icon",
+        "channel_id",
     )}),)
     add_fieldsets = ((None, {"fields": (
         "name",
+        "bs_color",
+        "bs_icon",
+        "channel_id",
     ),},),)
 
     # _num_of_category_memo: 特定のカテゴリー名で設定されたリマインダーの数

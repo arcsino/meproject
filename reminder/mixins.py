@@ -2,6 +2,7 @@ import calendar
 import datetime
 
 from collections import deque
+from .models import Category
 
 
 class BaseCalendarMixin:
@@ -61,9 +62,6 @@ class MonthCalendarMixin(BaseCalendarMixin):
         """月間カレンダー情報の入った辞書を返す"""
         self.setup_calendar()
         current_month = self.get_current_month()
-        hw = '課題'
-        todo = 'To-Do'
-        item = '持ち物'
         calendar_data = {
             'now': datetime.date.today(),
             'month_days': self.get_month_days(current_month),
@@ -72,9 +70,8 @@ class MonthCalendarMixin(BaseCalendarMixin):
             'month_next': self.get_next_month(current_month),
             'week_names': self.get_week_names(),
             'breadcrumb': 'Reminder - 月間カレンダー',
-            'hw_schedules': self.model.objects.filter(category__name__contains=hw),
-            'todo_schedules': self.model.objects.filter(category__name__contains=todo),
-            'item_schedules': self.model.objects.filter(category__name__contains=item),
+            'schedules': self.model.objects.order_by('category'),
+            'categories': Category.objects.all(),
         }
         return calendar_data
 
@@ -102,9 +99,6 @@ class WeekCalendarMixin(BaseCalendarMixin):
         days = self.get_week_days()
         first = days[0]
         last = days[-1]
-        hw = '課題'
-        todo = 'To-Do'
-        item = '持ち物'
         calendar_data = {
             'now': datetime.date.today(),
             'week_days': days,
@@ -114,9 +108,8 @@ class WeekCalendarMixin(BaseCalendarMixin):
             'week_first': first,
             'week_last': last,
             'breadcrumb': 'Reminder - 週間カレンダー',
-            'hw_schedules': self.model.objects.filter(category__name__contains=hw),
-            'todo_schedules': self.model.objects.filter(category__name__contains=todo),
-            'item_schedules': self.model.objects.filter(category__name__contains=item),
+            'schedules': self.model.objects.order_by('category'),
+            'categories': Category.objects.all(),
         }
         return calendar_data
 
@@ -147,9 +140,6 @@ class DayCalendarMixin(BaseCalendarMixin):
         """日間カレンダー情報の入った辞書を返す"""
         self.setup_calendar()
         current_day = self.get_current_day()
-        hw = '課題'
-        todo = 'To-Do'
-        item = '持ち物'
         calendar_data = {
             'now': datetime.date.today(),
             'day_current': current_day,
@@ -157,8 +147,7 @@ class DayCalendarMixin(BaseCalendarMixin):
             'day_next': current_day + datetime.timedelta(days=1),
             'week_name': self.get_week_name(current_day),
             'breadcrumb': 'Reminder - 日間カレンダー',
-            'hw_schedules': self.model.objects.filter(category__name__contains=hw),
-            'todo_schedules': self.model.objects.filter(category__name__contains=todo),
-            'item_schedules': self.model.objects.filter(category__name__contains=item),
+            'schedules': self.model.objects.order_by('category'),
+            'categories': Category.objects.all(),
         }
         return calendar_data
