@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block title %}To-Do{% endblock %}
+
+{% block content %}
+{% include 'base/_breadcrumb.html' %}
+<div class="container">
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-10 align-self-center">
+            <h1 class="text-center lh-1 my-5">
+                <span class="border-bottom border-success border-2">To-Doリスト</span>
+            </h1>
+            {% if todo_schedules %}
+                {% for todo_s in todo_schedules %}
+                    <div class="card border-success my-3">
+                        <div class="card-header bg-success text-white">
+                            {{ todo_s.deadline }}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ todo_s.subject.name }}</h5>
+                            <p class="card-text">{{ todo_s.title }}</p>
+                            {% if todo_s.detail %}
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ todo_s.pk }}" aria-expanded="false" aria-controls="collapse{{ todo_s.pk }}">
+                                        詳細
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ todo_s.pk }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">{{ todo_s.detail }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <p class="text-center">To-Doはありません。</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

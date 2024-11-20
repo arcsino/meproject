@@ -26,13 +26,16 @@
     <!-- Other CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body class="min-vh-100 position-relative pb-5" style="padding: 54px 0;">
+<body class="min-vh-100 position-relative" style="padding-top: 54px;">
 
     {% include 'base/_navbar.html' %}
 
     {% block header %}{% endblock %}
 
     {% block content %}{% endblock %}
+
+    <hr class="border-0 m-0 pt-5">
+    <hr class="border-0 m-0 pt-3">
 
     {% include 'base/_footer.html' %}
 
