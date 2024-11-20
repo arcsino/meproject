@@ -120,8 +120,13 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
+                                <a class="dropdown-item" href="{% url 'reminder:schedule_create' %}">
+                                    <i class="bi bi-plus-square me-2"></i>新規作成
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="{% url 'reminder:schedule_list' %}">
-                                    <i class="bi bi-list-check me-2"></i>スケジュール一覧
+                                    <i class="bi bi-check-square me-2"></i>スケジュール一覧
                                 </a>
                             </li>
                         </ul>

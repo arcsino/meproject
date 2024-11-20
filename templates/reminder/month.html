@@ -46,39 +46,18 @@
                                     {{ day.day }}
                                 {% endif %}
                                 <hr class="border-0">
-
-                                <ul class="list-unstyled">
-                                    {% if hw_schedules %}
-                                        {% for hw_s in hw_schedules %}
-                                            {% if hw_s.deadline == day %}
+                                <ul class="list-unstyled mb-0">
+                                    {% if schedules %}
+                                        {% for s in schedules %}
+                                            {% if s.deadline == day %}
                                             <li>
-                                                <span class="badge bg-danger text-white fw-normal">
-                                                    <i class="bi bi-pencil-square me-1"></i>課題
-                                                </span>
-                                            </li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-    
-                                    {% if todo_schedules %}
-                                        {% for todo_s in todo_schedules %}
-                                            {% if todo_s.deadline == day %}
-                                            <li>
-                                                <span class="badge bg-success text-white fw-normal">
-                                                    <i class="bi bi-check2-circle me-1"></i>To-Do
-                                                </span>
-                                            </li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-    
-                                    {% if item_schedules %}
-                                        {% for item_s in item_schedules %}
-                                            {% if item_s.deadline == day %}
-                                            <li>
-                                                <span class="badge bg-primary text-white fw-normal">
-                                                    <i class="bi bi-backpack me-1"></i>持ち物
-                                                </span>
+                                                {% for c in categories %}
+                                                    {% if s.category.name == c.name %}
+                                                    <span class="badge bg-{{ c.bs_color }} text-white fw-normal">
+                                                        <i class="bi {{ c.bs_icon }} me-1"></i>{{ c.name }}
+                                                    </span>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </li>
                                             {% endif %}
                                         {% endfor %}

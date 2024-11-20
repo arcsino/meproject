@@ -20,24 +20,14 @@
             <h1 class="text-center lh-1 my-5">
                 <span class="border-bottom border-success border-2">スケジュールの詳細</span>
             </h1>
-            {% if object.category.name == hw %}
-            <div class="card border-danger my-3">
-                <div class="card-header bg-danger text-white">
-                    <i class="bi bi-pencil-square me-2"></i>課題
-                </div>
-            {% endif %}
-            {% if object.category.name == todo %}
-            <div class="card border-success my-3">
-                <div class="card-header bg-success text-white">
-                    <i class="bi bi-check2-circle me-2"></i>To-Do
-                </div>
-            {% endif %}
-            {% if object.category.name == item %}
-            <div class="card border-primary my-3">
-                <div class="card-header bg-primary text-white">
-                    <i class="bi bi-backpack me-2"></i>持ち物
-                </div>
-            {% endif %}
+            {% for c in categories %}
+                {% if object.category.name == c.name %}
+                <div class="card border-{{ c.bs_color }} my-3">
+                    <div class="card-header bg-{{ c.bs_color }} text-white">
+                        <i class="bi {{ c.bs_icon }} me-2"></i>{{ c.name }}
+                    </div>
+                {% endif %}
+            {% endfor %}
                 <div class="card-body">
                     <div class="row card-text">
                         <div class="col-auto">教科：</div>
@@ -75,15 +65,11 @@
                     </div>
                     <div class="d-flex justify-content-end">
                         <div class="btn-group">
-                            {% if object.category.name == hw %}
-                            <a href="#" class="btn btn-sm btn-outline-danger">編集する</a>
-                            {% endif %}
-                            {% if object.category.name == todo %}
-                            <a href="#" class="btn btn-sm btn-outline-success">編集する</a>
-                            {% endif %}
-                            {% if object.category.name == item %}
-                            <a href="#" class="btn btn-sm btn-outline-primary">編集する</a>
-                            {% endif %}
+                            {% for c in categories %}
+                                {% if object.category.name == c.name %}
+                                <a href="#" class="btn btn-sm btn-outline-{{ c.bs_color }}">編集する</a>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

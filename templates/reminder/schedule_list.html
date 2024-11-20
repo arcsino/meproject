@@ -2,6 +2,12 @@
 
 {% block title %}Schedule List{% endblock %}
 
+{% block header %}
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
 {% block content %}
 {% include 'base/_breadcrumb.html' %}
 <div class="container">
@@ -13,124 +19,62 @@
             <div class="card">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
+                        {% for c in categories %}
                         <li class="nav-item">
-                            <button class="nav-link link-dark active" data-bs-toggle="tab" data-bs-target="#homework" type="button">課題</button>
+                            {% if c == first_category %}
+                            <button class="nav-link link-dark active" data-bs-toggle="tab" data-bs-target="#category{{ c.pk }}" type="button">
+                                <i class="bi {{ c.bs_icon }} me-2"></i>{{ c.name }}
+                            </button>
+                            {% else %}
+                            <button class="nav-link link-dark" data-bs-toggle="tab" data-bs-target="#category{{ c.pk }}" type="button">
+                                <i class="bi {{ c.bs_icon }} me-2"></i>{{ c.name }}
+                            </button>
+                            {% endif %}
                         </li>
-                        <li class="nav-item">
-                            <button class="nav-link link-dark" data-bs-toggle="tab" data-bs-target="#todo" type="button">To-Do</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link link-dark" data-bs-toggle="tab" data-bs-target="#item" type="button">持ち物</button>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="homework">
-                            {% if hw_schedules %}
-                                {% for hw_s in hw_schedules %}
-                                <div class="card border-danger my-3">
-                                    <div class="card-header bg-danger text-white">
-                                        {{ hw_s.deadline }}
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">{{ hw_s.subject.name }}</h5>
-                                        <p class="card-text">{{ hw_s.title }}</p>
-                                        {% if hw_s.detail %}
-                                        <div class="accordion mb-3" id="accordionExample">
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ hw_s.pk }}" aria-expanded="false" aria-controls="collapse{{ hw_s.pk }}">
-                                                    詳細
-                                                    </button>
-                                                </h2>
-                                                <div id="collapse{{ hw_s.pk }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">{{ hw_s.detail }}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        <div class="btn-group">
-                                            <a href="{% url 'reminder:schedule_detail' hw_s.pk %}" class="btn btn-sm btn-outline-danger">もっと見る</a>
-                                            <a href="#" class="btn btn-sm btn-outline-danger">編集する</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
+                        {% for c in categories %}
+                            {% if c == first_category %}
+                            <div class="tab-pane active" id="category{{ c.pk }}">
                             {% else %}
-                            <p class="text-center">課題はありません。</p>
+                            <div class="tab-pane" id="category{{ c.pk }}">
                             {% endif %}
-                        </div>
-                        <div class="tab-pane" id="todo">
-                            {% if todo_schedules %}
-                                {% for todo_s in todo_schedules %}
-                                <div class="card border-success my-3">
-                                    <div class="card-header bg-success text-white">
-                                        {{ todo_s.deadline }}
+                            {% for s in schedules %}
+                                {% if s.category.name == c.name %}
+                                <div class="card border-{{ c.bs_color }} my-3">
+                                    <div class="card-header bg-{{ c.bs_color }} text-white">
+                                        {{ s.deadline }}
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title fw-bold">{{ todo_s.subject.name }}</h5>
-                                        <p class="card-text">{{ todo_s.title }}</p>
-                                        {% if todo_s.detail %}
+                                        <h5 class="card-title fw-bold">{{ s.subject.name }}</h5>
+                                        <p class="card-text">{{ s.title }}</p>
+                                        {% if s.detail %}
                                         <div class="accordion mb-3" id="accordionExample">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ todo_s.pk }}" aria-expanded="false" aria-controls="collapse{{ todo_s.pk }}">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ s.pk }}" aria-expanded="false" aria-controls="collapse{{ s.pk }}">
                                                     詳細
                                                     </button>
                                                 </h2>
-                                                <div id="collapse{{ todo_s.pk }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">{{ todo_s.detail }}</div>
+                                                <div id="collapse{{ s.pk }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">{{ s.detail }}</div>
                                                 </div>
                                             </div>
                                         </div>
                                         {% endif %}
                                         <div class="btn-group">
-                                            <a href="{% url 'reminder:schedule_detail' todo_s.pk %}" class="btn btn-sm btn-outline-success">もっと見る</a>
-                                            <a href="#" class="btn btn-sm btn-outline-success">編集する</a>
+                                            <a href="{% url 'reminder:schedule_detail' s.pk %}" class="btn btn-sm btn-outline-{{ c.bs_color }}">もっと見る</a>
+                                            <a href="#" class="btn btn-sm btn-outline-{{ c.bs_color }}">編集する</a>
                                         </div>
                                     </div>
                                 </div>
-                                {% endfor %}
-                            {% else %}
-                            <p class="text-center">To-Doはありません。</p>
-                            {% endif %}    
-                        </div>
-                        <div class="tab-pane" id="item">
-                            {% if item_schedules %}
-                                {% for item_s in item_schedules %}
-                                <div class="card border-primary my-3">
-                                    <div class="card-header bg-primary text-white">
-                                        {{ item_s.deadline }}
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">{{ item_s.subject.name }}</h5>
-                                        <p class="card-text">{{ item_s.title }}</p>
-                                        {% if item_s.detail %}
-                                        <div class="accordion mb-3" id="accordionExample">
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ item_s.pk }}" aria-expanded="false" aria-controls="collapse{{ item_s.pk }}">
-                                                    詳細
-                                                    </button>
-                                                </h2>
-                                                <div id="collapse{{ item_s.pk }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">{{ item_s.detail }}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        <div class="btn-group">
-                                            <a href="{% url 'reminder:schedule_detail' item_s.pk %}" class="btn btn-sm btn-outline-primary">もっと見る</a>
-                                            <a href="#" class="btn btn-sm btn-outline-primary">編集する</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            {% else %}
-                            <p class="text-center">持ち物はありません。</p>
-                            {% endif %}
-                        </div>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

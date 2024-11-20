@@ -46,51 +46,22 @@
                                     {{ day.day }}
                                 {% endif %}
                                 <hr class="border-0">
-
-                                {% if hw_schedules %}
-                                    {% for hw_s in hw_schedules %}
-                                        {% if hw_s.deadline == day %}
-                                        <div class="card border-danger my-2">
-                                            <div class="card-header bg-danger text-white">
-                                                <i class="bi bi-pencil-square me-2"></i>課題
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title fw-bold">{{ hw_s.subject.name }}</h5>
-                                                <p class="card-text">{{ hw_s.title }}</p>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-    
-                                {% if todo_schedules %}
-                                    {% for todo_s in todo_schedules %}
-                                        {% if todo_s.deadline == day %}
-                                        <div class="card border-success my-2">
-                                            <div class="card-header bg-success text-white">
-                                                <i class="bi bi-check2-circle me-2"></i>To-Do
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title fw-bold">{{ todo_s.subject.name }}</h5>
-                                                <p class="card-text">{{ todo_s.title }}</p>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-    
-                                {% if item_schedules %}
-                                    {% for item_s in item_schedules %}
-                                        {% if item_s.deadline == day %}
-                                        <div class="card border-primary my-2">
-                                            <div class="card-header bg-primary text-white">
-                                                <i class="bi bi-backpack me-2"></i>持ち物
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title fw-bold">{{ item_s.subject.name }}</h5>
-                                                <p class="card-text">{{ item_s.title }}</p>
-                                            </div>
-                                        </div>
+                                {% if schedules %}
+                                    {% for s in schedules %}
+                                        {% if s.deadline == day %}
+                                            {% for c in categories %}
+                                                {% if s.category.name == c.name %}
+                                                <div class="card border-{{ c.bs_color }} my-2">
+                                                    <div class="card-header bg-{{ c.bs_color }} text-white">
+                                                        <i class="bi {{ c.bs_icon }} me-2"></i>{{ c.name }}
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title fw-bold">{{ s.subject.name }}</h5>
+                                                        <p class="card-text">{{ s.title }}</p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            {% endfor %}
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
