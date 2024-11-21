@@ -95,6 +95,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         TakingSubject,
         _("履修中教科"),
         blank=True,
+        null=True,
+    )
+    schedule_id = models.IntegerField(
+        _("スケジュールID"),
+        blank=True,
+        null=True,
+        help_text=_(
+            "スケジュール詳細でIDを確認できます。"
+        ),
     )
     objects = CustomUserManager()
 

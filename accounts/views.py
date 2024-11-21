@@ -7,11 +7,15 @@ from django.contrib.auth.views import (
 )
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
-from .forms import SignupForm, LoginForm, PasswordChangeForm
+from django.views import generic
+from .forms import (
+    SignupForm,
+    LoginForm,
+    PasswordChangeForm,
+)
 
 
-class SignupView(CreateView):
+class SignupView(generic.CreateView):
     """ サインアップビュー """
     form_class = SignupForm
     success_url = reverse_lazy("accounts:login")
@@ -24,6 +28,10 @@ class SignupView(CreateView):
         }
         context.update(signup_context)
         return context
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'サインアップに成功しました。')
+        return super().form_valid(form)
 
 
 class LoginView(LoginView):
@@ -33,27 +41,27 @@ class LoginView(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        signup_context = {
+        login_context = {
             "breadcrumb": "Account - ログイン",
         }
-        context.update(signup_context)
+        context.update(login_context)
         return context
     
     def form_valid(self, form):
-        messages.success(self.request, 'ログインに成功しました。')
+        messages.info(self.request, 'ログインに成功しました。')
         return super().form_valid(form)
 
 
-class LogoutConfirmView(LoginRequiredMixin, TemplateView):
+class LogoutConfirmView(LoginRequiredMixin, generic.TemplateView):
     """ログアウト確認ビュー"""
     template_name = 'accounts/logout.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        signup_context = {
+        logout_context = {
             "breadcrumb": "Account - ログアウト",
         }
-        context.update(signup_context)
+        context.update(logout_context)
         return context
 
 
@@ -70,10 +78,10 @@ class PasswordChangeView(PasswordChangeView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        signup_context = {
+        password_context = {
             "breadcrumb": "Account - パスワード変更",
         }
-        context.update(signup_context)
+        context.update(password_context)
         return context
 
 
@@ -83,8 +91,8 @@ class PasswordChangeDoneView(PasswordChangeDoneView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        signup_context = {
+        password_context = {
             "breadcrumb": "Account - パスワード変更",
         }
-        context.update(signup_context)
+        context.update(password_context)
         return context

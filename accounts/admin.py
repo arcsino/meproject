@@ -22,6 +22,7 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "date_joined",
         "subject",
+        "schedule_id",
     )}),)
     add_fieldsets = ((None, {"fields": (
         "username",

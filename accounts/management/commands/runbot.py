@@ -33,7 +33,6 @@ async def on_ready():
     # スラッシュコマンドを同期
     await tree.sync()
 
-
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -48,7 +47,7 @@ async def on_message(message):
     else:
         pass
 
-
+@app_commands.default_permissions(administrator=True)
 @tree.command(name="active", description="Display active button.")
 async def test(interaction: discord.Interaction):
     await interaction.response.send_message("### アクティブボタンを表示しました！", ephemeral=True)
@@ -56,6 +55,7 @@ async def test(interaction: discord.Interaction):
 
 
 class ActiveButton(discord.ui.View):
+
     def __init__(self, timeout=None):
         super().__init__(timeout=timeout)
     
