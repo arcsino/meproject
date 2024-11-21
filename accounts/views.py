@@ -5,6 +5,7 @@ from django.contrib.auth.views import (
     PasswordChangeView,
     PasswordChangeDoneView,
 )
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView
 from .forms import SignupForm, LoginForm, PasswordChangeForm
@@ -37,6 +38,10 @@ class LoginView(LoginView):
         }
         context.update(signup_context)
         return context
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'ログインに成功しました。')
+        return super().form_valid(form)
 
 
 class LogoutConfirmView(LoginRequiredMixin, TemplateView):

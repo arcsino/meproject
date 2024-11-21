@@ -17,4 +17,5 @@ urlpatterns = [
     path('schedules/list/', views.ScheduleListView.as_view(), name='schedule_list'),
     path('schedules/detail/<int:pk>/', views.ScheduleDetailView.as_view(), name='schedule_detail'),
     path('schedules/create/', views.ScheduleCreateView.as_view(), name='schedule_create'),
+    path('schedules/update/<int:pk>/', views.ScheduleUpdateview.as_view(), name='schedule_update'),
 ]

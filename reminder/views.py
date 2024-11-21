@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.utils import timezone
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import Category, Schedule
@@ -81,10 +82,18 @@ class ScheduleCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = ScheduleCreateForm
     success_url = reverse_lazy('reminder:schedule_list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        create_context = {
+            "breadcrumb": "Reminder - 新規作成",
+        }
+        context.update(create_context)
+        return context
+    
     def form_valid(self, form):
         schedule = form.save(commit=False)
-        schedule.created_by = self.request.user
-        schedule.updated_by = self.request.user
+        schedule.created_by = str(self.request.user)
+        schedule.updated_by = str(self.request.user)
         schedule.save()
         messages.success(self.request, 'スケジュールを作成しました。')
         return super().form_valid(form)
@@ -93,10 +102,30 @@ class ScheduleCreateView(LoginRequiredMixin, generic.CreateView):
         messages.error(self.request, 'スケジュールの作成に失敗しました。')
         return super().form_invalid(form)
 
+
+class ScheduleUpdateview(LoginRequiredMixin, generic.UpdateView):
+    model = Schedule
+    template_name = 'reminder/schedule_update.html'
+    form_class = ScheduleCreateForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        create_context = {
-            "breadcrumb": "Reminder - 新規作成",
+        update_context = {
+            "breadcrumb": "スケジュール編集",
         }
-        context.update(create_context)
+        context.update(update_context)
         return context
+
+    def get_success_url(self):
+        return reverse_lazy('reminder:schedule_detail', kwargs={'pk': self.kwargs['pk']})
+    
+    def form_valid(self, form):
+        schedule = form.save(commit=False)
+        schedule.updated_by = str(self.request.user)
+        schedule.save()
+        messages.success(self.request, 'スケジュールを更新しました。')
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, 'スケジュールの更新に失敗しました。')
+        return super().form_invalid(form)

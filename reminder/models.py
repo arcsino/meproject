@@ -70,7 +70,7 @@ class Schedule(models.Model):
     )
     created_at = models.DateTimeField(
         _("作成日時"),
-        default=timezone.now,
+        auto_now_add=True
     )
     updated_by = models.CharField(
         _("編集者"),
@@ -79,7 +79,7 @@ class Schedule(models.Model):
     )
     updated_at = models.DateTimeField(
         _("変更日時"),
-        default=timezone.now,
+        auto_now=True
     )
 
     def __str__(self):
