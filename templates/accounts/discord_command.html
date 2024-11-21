@@ -1,6 +1,6 @@
-{% extends "base/base.html" %}
+{% extends 'base/base.html' %}
 
-{% block title %}Password Change{% endblock %}
+{% block title %}My Discord Command{% endblock %}
 
 {% block header %}
 
@@ -15,9 +15,16 @@
     <div class="row justify-content-center text-center pb-5">
         <div class="col-md-7 align-self-center">
             <h1 class="lh-1 my-5">
-                <span class="border-bottom border-success border-2">パスワード変更</span>
+                <span class="border-bottom border-success border-2">MyDiscordコマンド</span>
             </h1>
             <form method="post">{% csrf_token %}
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}
+                    <p class="mb-0">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
                 <table class="table mb-5">
                     <tbody>
                         <tr>
@@ -27,21 +34,13 @@
                         {% for field in form %}
                         <tr>
                             <th scope="row">{{ field.label_tag }}</th>
-                            <td>
-                                {{ field }}
-                                {% if field.help_text %}
-                                <small class="form-text">{{ field.help_text }}</small>
-                                {% endif %}
-                                {% for error in field.errors %}
-                                <p class="text-danger mt-1">{{ error }}</p>
-                                {% endfor %}
-                            </td>
+                            <td>{{ field }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-arrow-repeat me-2"></i>Change Password
+                    <i class="bi bi-save me-2"></i>Save
                 </button>
             </form>
         </div>

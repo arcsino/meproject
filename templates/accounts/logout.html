@@ -1,9 +1,16 @@
 {% extends 'base/base.html' %}
 
-{% block title %}Log out{% endblock %}
+{% block title %}Log Out{% endblock %}
+
+{% block header %}
+
+    {% include 'base/_breadcrumb.html' %}
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
 
 {% block content %}
-{% include 'base/_breadcrumb.html' %}
 <div class="container">
     <div class="row justify-content-center text-center pb-5">
         <div class="col-md-7 align-self-center">
@@ -12,11 +19,11 @@
             </h1>
             <p class="text-danger mb-5">本当にログアウトしてもいいですか？</p>
             <a class="btn btn-primary mb-3" href="{% url 'notice:index' %}">
-                <i class="bi bi-house pe-2"></i>Back to home
+                <i class="bi bi-house pe-2"></i>Back To Home
             </a>
             <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}
                 <button class="btn btn-danger" type="submit">
-                    <i class="bi bi-door-open pe-2"></i>Log out
+                    <i class="bi bi-door-open pe-2"></i>Log Out
                 </button>
             </form>
         </div>

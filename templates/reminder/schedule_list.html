@@ -24,11 +24,11 @@
                         <li class="nav-item">
                             {% if c == first_category %}
                             <button class="nav-link link-dark active" data-bs-toggle="tab" data-bs-target="#category{{ c.pk }}" type="button">
-                                <i class="bi {{ c.bs_icon }} me-2"></i>{{ c.name }}
+                                {{ c.name }}
                             </button>
                             {% else %}
                             <button class="nav-link link-dark" data-bs-toggle="tab" data-bs-target="#category{{ c.pk }}" type="button">
-                                <i class="bi {{ c.bs_icon }} me-2"></i>{{ c.name }}
+                                {{ c.name }}
                             </button>
                             {% endif %}
                         </li>

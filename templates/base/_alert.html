@@ -4,7 +4,7 @@
         <div class="col align-self-center">
             <ul class="messages list-unstyled mb-0">
                 {% for message in messages %}
-                <li {% if message.tags %}class="{{ message.tags }} mb-0"{% endif %}>
+                <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
                     {{ message }}
                 </li>
                 {% endfor %}
