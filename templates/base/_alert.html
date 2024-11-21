@@ -1,10 +1,10 @@
-{% if massages %}
+{% if messages %}
 <div class="container">
-    <div class="row justify-content-center text-center py-5">
-        <div class="col-md-10 align-self-center">
-            <ul class="messages">
+    <div class="row justify-content-center pt-4">
+        <div class="col align-self-center">
+            <ul class="messages list-unstyled mb-0">
                 {% for message in messages %}
-                <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+                <li {% if message.tags %}class="{{ message.tags }} mb-0"{% endif %}>
                     {{ message }}
                 </li>
                 {% endfor %}

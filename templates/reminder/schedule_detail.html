@@ -2,7 +2,7 @@
 
 {% block title %}Schedule Detail{% endblock %}
 
-{% block content %}
+{% block header %}
 <!-- breadcrumb -->
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb p-3 bg-light rounded-2">
@@ -13,7 +13,11 @@
 </nav>
 <!-- breadcrumb -->
 
-<!-- detail -->
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
 <div class="container">
     <div class="row justify-content-center pb-5">
         <div class="col-md-10 align-self-center">
@@ -67,7 +71,7 @@
                         <div class="btn-group">
                             {% for c in categories %}
                                 {% if object.category.name == c.name %}
-                                <a href="#" class="btn btn-sm btn-outline-{{ c.bs_color }}">編集する</a>
+                                <a href="{% url 'reminder:schedule_update' object.pk %}" class="btn btn-sm btn-outline-{{ c.bs_color }}">編集する</a>
                                 {% endif %}
                             {% endfor %}
                         </div>
