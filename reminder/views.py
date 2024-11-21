@@ -1,6 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.utils import timezone
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import Category, Schedule
@@ -45,7 +44,7 @@ class DayCalendarView(LoginRequiredMixin, mixins.DayCalendarMixin, generic.Templ
 
 
 class ScheduleListView(LoginRequiredMixin, generic.TemplateView):
-    """スケジュール一覧を表示するビュー"""
+    """スケジュール一覧ビュー"""
     template_name = 'reminder/schedule_list.html'
     
     def get_context_data(self, **kwargs):
@@ -61,14 +60,14 @@ class ScheduleListView(LoginRequiredMixin, generic.TemplateView):
 
 
 class ScheduleDetailView(LoginRequiredMixin, generic.DetailView):
-    """スケジュールの詳細を表示するビュー"""
+    """スケジュール詳細を表示するビュー"""
     template_name = 'reminder/schedule_detail.html'
     model = Schedule
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         homework_context = {
-            'breadcrumb': 'スケジュールの詳細',
+            'breadcrumb': 'スケジュール詳細',
             'categories': Category.objects.all(),
         }
         context.update(homework_context)
@@ -76,7 +75,7 @@ class ScheduleDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class ScheduleCreateView(LoginRequiredMixin, generic.CreateView):
-    """スケジュールの新規作成ビュー"""
+    """スケジュール作成ビュー"""
     model = Schedule
     template_name = 'reminder/schedule_create.html'
     form_class = ScheduleCreateForm
@@ -85,7 +84,7 @@ class ScheduleCreateView(LoginRequiredMixin, generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         create_context = {
-            "breadcrumb": "Reminder - 新規作成",
+            "breadcrumb": "Reminder - スケジュール作成",
         }
         context.update(create_context)
         return context
@@ -103,7 +102,8 @@ class ScheduleCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_invalid(form)
 
 
-class ScheduleUpdateview(LoginRequiredMixin, generic.UpdateView):
+class ScheduleUpdateView(LoginRequiredMixin, generic.UpdateView):
+    """スケジュール編集ビュー"""
     model = Schedule
     template_name = 'reminder/schedule_update.html'
     form_class = ScheduleCreateForm
@@ -123,9 +123,28 @@ class ScheduleUpdateview(LoginRequiredMixin, generic.UpdateView):
         schedule = form.save(commit=False)
         schedule.updated_by = str(self.request.user)
         schedule.save()
-        messages.success(self.request, 'スケジュールを更新しました。')
+        messages.info(self.request, 'スケジュールを更新しました。')
         return super().form_valid(form)
     
     def form_invalid(self, form):
-        messages.error(self.request, 'スケジュールの更新に失敗しました。')
+        messages.warning(self.request, 'スケジュールの更新に失敗しました。')
         return super().form_invalid(form)
+
+
+class ScheduleDeleteView(LoginRequiredMixin, generic.DeleteView):
+    """スケジュール削除ビュー"""
+    model = Schedule
+    template_name = 'reminder/schedule_delete.html'
+    success_url = reverse_lazy('reminder:schedule_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        update_context = {
+            "breadcrumb": "スケジュール削除",
+        }
+        context.update(update_context)
+        return context
+    
+    def form_valid(self, form):
+        messages.error(self.request, 'スケジュールを削除しました。')
+        return super().form_valid(form)
