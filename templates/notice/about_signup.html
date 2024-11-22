@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+
+{% block title %}About Sign Up{% endblock %}
+
+{% block header %}
+
+    {% include 'base/_breadcrumb.html' %}
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-10 align-self-center">
+            <h1 class="lh-1 my-5 text-center">
+                <span class="border-bottom border-success border-2">サインアップについて</span>
+            </h1>
+            <p class="mx-3">サインアップ（ユーザー登録）には、ユーザー名（匿名可）、DiscordのユーザーID、パスワードが必要です。</p>
+            <p class="mx-3">DiscordのユーザーIDはメールアドレスの代わりに使っています。使う理由は、リマインダーなどを利用するにあたって、部外者（学外の者）に利用されては困るからです。また、Discordはリマインダーの通知の際にも利用するので、都合がいいのです。</p>
+            <h3 class="lh-1 mt-5 mb-3 text-center">サインアップの流れ</h3>
+            <ul class="list-group list-group-numbered">
+                <li class="list-group-item">MEのDiscordサーバーに招待してもらい、サーバーに入る</li>
+                <li class="list-group-item">サインアップページに行き、必要事項を入力してフォームを送信する</li>
+                <li class="list-group-item">Discordのサーバー内でスラッシュコマンド<mark>&frasl;active</mark>を使いアクティブボタンを表示させる</li>
+                <li class="list-group-item">アクティブボタンを押して、無事アクティブ化されたら完了</li>
+            </ul>
+            <p class="mx-3 mt-3">※アクティブ化は一度行えば、それ以降する必要はありません。</p>
+            <p class="mx-3">※アクティブ化されたユーザーだけがログインすることができます。</p>
+            <p class="lead text-danger mx-3">※サインアップ画面で全てが完結するわけではありません！</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
