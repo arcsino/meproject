@@ -6,20 +6,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
-class TakingSubject(models.Model):
-    name = models.CharField(
-        _("subject name"),
-        max_length=127,
-        unique=True,
-    )
-    grade = models.IntegerField(
-        _("grade"),
-    )
-
-    def __str__(self):
-        return self.name
-
-
 class CustomUserManager(BaseUserManager):
 
     def _create_user(self, username, discord_id, password, **extra_fields):
@@ -91,20 +77,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ),
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
-    subject = models.ManyToManyField(
-        TakingSubject,
-        _("履修中教科"),
-        blank=True,
-        null=True,
-    )
-    schedule_id = models.IntegerField(
-        _("スケジュールID"),
-        blank=True,
-        null=True,
-        help_text=_(
-            "スケジュール詳細でIDを確認できます。"
-        ),
-    )
+
     objects = CustomUserManager()
 
     USERNAME_FIELD = "username"

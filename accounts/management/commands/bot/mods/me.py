@@ -1,48 +1,43 @@
 from accounts.management.commands.bot.commands import resister_command
 from asgiref.sync import sync_to_async
-from accounts.models import CustomUser
-from reminder.models import Schedule
+from reminder.models import Schedule, Category
 
 import discord
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
-@resister_command("!send schedule")
+@resister_command("!cntskd")
 async def sendSchedule(channel_name, message):
-    id = await sync_to_async(_get_schedule_id, thread_sensitive=True)(message.author.id)
-    url = await sync_to_async(_get_schedule_url, thread_sensitive=True)()
-    content = await sync_to_async(_get_schedule_content, thread_sensitive=True)(message.author.id)
+    count = await sync_to_async(_num_of_schedules, thread_sensitive=True)()
+    if count != None:
+        await message.channel.send(f"現在スケジュールは{count}個あります。")
+    else:
+        await message.channel.send("エラーが発生しました。")
 
-    embed = discord.Embed(
-        title=("スケジュール #%s" % id),
-        color=0x349961,
-        description=content,
-        url=url,
-    )
-    embed.set_thumbnail(url=message.guild.icon.url)
-    embed.set_footer(
-        text=("Send by %s" % message.author.display_name),
-        icon_url=message.author.avatar.url,
-    )
-    await message.channel.send(embed=embed)
-
-
-def _get_schedule_id(discord_id):
+def _num_of_schedules():
     try:
-        user = CustomUser.objects.all().get(discord_id=discord_id)
-        return user.schedule_id
+        count = Schedule.objects.all().count()
+        return count
     except:
-        return "None"
+        return None
 
-def _get_schedule_url():
-    return "https://example-dlksjflsjdfls.com"
 
-def _get_schedule_content(discord_id):
+@resister_command("!cntskd bycat")
+async def sendSchedule(channel_name, message):
+    context = await sync_to_async(_get_schedules_context, thread_sensitive=True)()
+    if context != None:
+        await message.channel.send(context)
+    else:
+        await message.channel.send("エラーが発生しました。")
+
+def _get_schedules_context():
     try:
-        user = CustomUser.objects.all().get(discord_id=discord_id)
-        schedule = Schedule.objects.all().get(pk=user.schedule_id)
-        content = f"`カテゴリー`：{schedule.category.name}\n`教科`：{schedule.subject.name}\n`タイトル`：{schedule.title}\n`詳細`：{schedule.detail}\n`締め切り日`：{schedule.deadline}"
-        return content
+        categories = Category.objects.all()
+        schedules = Schedule.objects.all()
+        context = ""
+        for c in categories:
+            context += f"`{c.name}`：{schedules.filter(category=c).count()}個\n"
+        return context
     except:
-        return "None"
+        return None
