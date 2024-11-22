@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Notice
+from .models import Notice, EmbedMessage
 
 
 class NoticeAdmin(admin.ModelAdmin):
@@ -16,4 +16,20 @@ class NoticeAdmin(admin.ModelAdmin):
     ),},),)
 
 
+class EmbedMessageAdmin(admin.ModelAdmin):
+    list_display = ("title","key",)
+    ordering = ("pk",)
+    fieldsets = (("メッセージ情報", {"fields": (
+        "title",
+        "description",
+        "key",
+    )}),)
+    add_fieldsets = ((None, {"fields": (
+        "title",
+        "description",
+        "key",
+    ),},),)
+
+
 admin.site.register(Notice, NoticeAdmin)
+admin.site.register(EmbedMessage, EmbedMessageAdmin)

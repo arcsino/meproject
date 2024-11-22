@@ -19,3 +19,22 @@ class Notice(models.Model):
         ),
     )
     date_created = models.DateTimeField(_("date created"), default=timezone.now)
+
+
+class EmbedMessage(models.Model):
+    title = models.CharField(
+        _("Title"),
+        max_length=64,
+        blank=True,
+        null=True,
+    )
+    description = models.TextField(
+        _("description"),
+        max_length=512,
+        blank=True,
+        null=True,
+    )
+    key = models.IntegerField(
+        _("key"),
+        unique=True,
+    )
