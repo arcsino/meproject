@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from .models import Category, Schedule
 from .forms import ScheduleCreateForm
 from . import mixins
+import datetime
 
 
 class MonthCalendarView(LoginRequiredMixin, mixins.MonthCalendarMixin, generic.TemplateView):
@@ -49,9 +50,10 @@ class ScheduleListView(LoginRequiredMixin, generic.TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        today = datetime.date.today()
         homework_context = {
             'breadcrumb': 'Reminder - スケジュール一覧',
-            'schedules': Schedule.objects.order_by('deadline'),
+            'schedules': Schedule.objects.filter(deadline__gte=today).order_by('deadline'),
             'categories': Category.objects.order_by('pk'),
             'first_category': Category.objects.first(),
         }

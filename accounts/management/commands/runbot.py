@@ -87,8 +87,8 @@ def _get_message_description(key):
 async def send_the_schedule(ctx:discord.Interaction, schedule_id:int):
     url = await sync_to_async(_get_schedule_url, thread_sensitive=True)(schedule_id)
     description = await sync_to_async(_get_schedule_description, thread_sensitive=True)(schedule_id)
-    if description == None:
-        description == "None"
+    if not description:
+        description = "None"
     embed = discord.Embed(
         title=(f"スケジュール #{schedule_id}"),
         color=0x349961,
@@ -161,12 +161,13 @@ def _associate_user(username, discord_id):
         return "### あなたのアカウントは既にアクティブ化されています。"
 
 
-@tasks.loop(seconds=20)
+@tasks.loop(seconds=60)
 async def loop():
     # botが起動するまで待つ
     await client.wait_until_ready()
     now = datetime.datetime.now().strftime('%H:%M')
     if now == '07:00':
+        await sync_to_async(_delete_previous_schedule, thread_sensitive=True)()
         date = datetime.date.today() + datetime.timedelta(days=1)
         category_list = await sync_to_async(_get_category_id_list, thread_sensitive=True)()
         if category_list:
@@ -196,7 +197,6 @@ def _get_category_id_list():
     try:
         categories = Category.objects.all()
         id_list = [category.pk for category in categories]
-        print(f"category_list:{id_list}")
         return id_list
     except:
         return None
@@ -209,16 +209,14 @@ def _get_schedule_id_list(category_id, date):
         for schedule in schedules:
             if schedule.category.pk == category_id:
                 id_list.append(schedule.pk)
-        print(f"schedule_list:{id_list}")
         return id_list
     except:
-        print("None")
+        return None
 
 
 def _get_category_channel_id(category_id):
     try:
         category = Category.objects.get(pk=category_id)
-        print(f"category.channel_id:{category.channel_id}")
         return int(category.channel_id)
     except:
         return None
@@ -239,6 +237,16 @@ def _get_schedule_description_alpha(schedule_id):
         return description
     except:
         return None
+
+
+def _delete_previous_schedule():
+    date = datetime.date.today()
+    try:
+        schedules = Schedule.objects.all().filter(deadline__lt=date)
+        for schedule in schedules:
+            schedule.delete()
+    except:
+        pass
 
 
 class Command(BaseCommand):
