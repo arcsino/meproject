@@ -166,7 +166,7 @@ async def loop():
     # botが起動するまで待つ
     await client.wait_until_ready()
     now = datetime.datetime.now().strftime('%H:%M')
-    if now == '02:56':
+    if now == '07:00':
         date = datetime.date.today() + datetime.timedelta(days=1)
         category_list = await sync_to_async(_get_category_id_list, thread_sensitive=True)()
         if category_list:

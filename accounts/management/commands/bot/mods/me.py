@@ -3,11 +3,10 @@ from asgiref.sync import sync_to_async
 from reminder.models import Schedule, Category
 
 import discord
+import datetime
 
-intents = discord.Intents.all()
-client = discord.Client(intents=intents)
 
-@resister_command("!cntskd")
+"""@resister_command("!cntskd")
 async def sendSchedule(channel_name, message):
     count = await sync_to_async(_num_of_schedules, thread_sensitive=True)()
     if count != None:
@@ -17,7 +16,8 @@ async def sendSchedule(channel_name, message):
 
 def _num_of_schedules():
     try:
-        count = Schedule.objects.all().count()
+        date = datetime.date.today()
+        count = Schedule.objects.all().filter(deadline__gte=date).count
         return count
     except:
         return None
@@ -40,4 +40,4 @@ def _get_schedules_context():
             context += f"`{c.name}`：{schedules.filter(category=c).count()}個\n"
         return context
     except:
-        return None
+        return None"""

@@ -150,13 +150,13 @@
             <h2 class="fw-normal lh-1">ユーザー登録について</h2><hr>
             <p class="">サインアップする前に必ず、利用規約を読んでください。サインアップした時点で、利用規約に同意したものとみなします。</p>
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="{% url 'notice:about_signup' %}" class="list-group-item list-group-item-action">
                     <i class="bi bi-person-add me-2"></i>サインアップについて
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="{% url 'notice:terms_of_use' %}" class="list-group-item list-group-item-action">
                     <i class="bi bi-journal-check me-2"></i>利用規約
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="{% url 'notice:privacy_policy' %}" class="list-group-item list-group-item-action">
                     <i class="bi bi-shield-check me-2"></i>プライバシーポリシー
                 </a>
             </div>
