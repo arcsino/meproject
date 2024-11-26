@@ -57,7 +57,7 @@
                                     <ul class="list-unstyled mb-0">
                                         {% if schedules %}
                                             {% for s in schedules %}
-                                                {% if s.deadline == day %}
+                                                {% if s.deadline.date == day %}
                                                 <li>
                                                     {% for c in categories %}
                                                         {% if s.category.name == c.name %}

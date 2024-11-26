@@ -56,7 +56,7 @@
                                     <hr class="border-0">
                                     {% if schedules %}
                                         {% for s in schedules %}
-                                            {% if s.deadline == day %}
+                                            {% if s.deadline.date == day %}
                                                 {% for c in categories %}
                                                     {% if s.category.name == c.name %}
                                                     <div class="card border-{{ c.bs_color }} my-2">

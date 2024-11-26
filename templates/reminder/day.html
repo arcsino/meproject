@@ -46,7 +46,7 @@
                             <td>
                                 {% if schedules %}
                                     {% for s in schedules %}
-                                        {% if s.deadline == day_current %}
+                                        {% if s.deadline.date == day_current %}
                                             {% for c in categories %}
                                                 {% if s.category.name == c.name %}
                                                 <div class="card border-{{ c.bs_color }} my-2">
