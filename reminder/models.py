@@ -11,7 +11,8 @@ class Category(models.Model):
     )
     bs_color = models.CharField(_("Boostrap Color"), max_length=32)
     bs_icon = models.CharField(_("Bootstrap Icon"), max_length=32)
-    channel_id = models.SlugField(_("チャンネルID"), max_length=20)
+    webhook_url = models.CharField(_("Webhook Url"), max_length=128)
+    embed_color = models.CharField(_("embed_color"), max_length=16, default="green")
 
     def __str__(self):
         return self.name
@@ -36,9 +37,31 @@ class Deadline(models.Model):
         _("締め切り日"),
         unique=True,
     )
+    MON = "月曜日"
+    TUE = "火曜日"
+    WED = "水曜日"
+    THU = "木曜日"
+    FRI = "金曜日"
+    SAT = "土曜日"
+    SUN = "日曜日"
+    WEEK_CHOICES = {
+        MON: "月曜日",
+        TUE: "火曜日",
+        WED: "水曜日",
+        THU: "木曜日",
+        FRI: "金曜日",
+        SAT: "土曜日",
+        SUN: "日曜日",
+    }
+    week = models.CharField(
+        _("曜日"),
+        max_length=3,
+        choices=WEEK_CHOICES,
+        default=MON
+    )
 
     def __str__(self):
-        return self.date
+        return self.date.strftime("%Y年%m月%d日") + f"（{self.week}）"
 
 
 class Schedule(models.Model):
@@ -50,11 +73,6 @@ class Schedule(models.Model):
     subject = models.ForeignKey(
         Subject,
         verbose_name="教科名",
-        on_delete=models.CASCADE,
-    )
-    deadline = models.ForeignKey(
-        Deadline,
-        verbose_name="締め切り日",
         on_delete=models.CASCADE,
     )
     title = models.CharField(
@@ -71,6 +89,11 @@ class Schedule(models.Model):
         help_text=_(
             "詳しい説明などはこちらに。空欄でも可。"
         ),
+    )
+    deadline = models.ForeignKey(
+        Deadline,
+        verbose_name="締め切り日",
+        on_delete=models.CASCADE,
     )
     created_by = models.CharField(
         _("作成者"),

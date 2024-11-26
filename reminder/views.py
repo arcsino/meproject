@@ -53,7 +53,7 @@ class ScheduleListView(LoginRequiredMixin, generic.TemplateView):
         today = datetime.date.today()
         homework_context = {
             'breadcrumb': 'Reminder - スケジュール一覧',
-            'schedules': Schedule.objects.filter(deadline__gte=today).order_by('deadline'),
+            'schedules': Schedule.objects.filter(deadline__date__gte=today).order_by('deadline', 'subject'),
             'categories': Category.objects.order_by('pk'),
             'first_category': Category.objects.first(),
         }

@@ -10,13 +10,15 @@ class CategoryAdmin(admin.ModelAdmin):
         "name",
         "bs_color",
         "bs_icon",
-        "channel_id",
+        "webhook_url",
+        "embed_color",
     )}),)
     add_fieldsets = ((None, {"fields": (
         "name",
         "bs_color",
         "bs_icon",
-        "channel_id",
+        "webhook_url",
+        "embed_color",
     ),},),)
 
     # _num_of_category_memo: 特定のカテゴリー名で設定されたリマインダーの数
@@ -44,13 +46,14 @@ class SubjectAdmin(admin.ModelAdmin):
 
 class DeadlineAdmin(admin.ModelAdmin):
     
-    list_display = ("date",)
+    list_display = ("date", "week")
+    ordering =("date",)
 
 
 class ScheduleAdmin(admin.ModelAdmin):
     
     list_display = ("title", "subject", "category", "deadline", "updated_by", "updated_at")
-    ordering = ("deadline",)
+    ordering = ("-deadline",)
 
 
 admin.site.register(Category, CategoryAdmin)
