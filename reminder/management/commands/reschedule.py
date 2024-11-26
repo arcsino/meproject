@@ -4,17 +4,21 @@ import datetime
 
 
 class Command(BaseCommand):
-    help = "スケジュールの日程を一か月分作る"
+    help = "今日のスケジュールを削除、新しい日付の追加"
 
     def handle(self, *args, **options):
         today = datetime.datetime.today()
         week_names = ['月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日', '日曜日']
-        for i in range(0, 30):
-            date = today + datetime.timedelta(days=i)
-            week = week_names[date.weekday()]
-            try:
-                newday = Deadline(date=date, week=week)
-                newday.save()
-            except:
-                pass
-        print("Rescheuled!!")
+        week = week_names[today.weekday()]
+        # 今日のスケジュールを削除
+        try:
+            endline = Deadline.objects.get(date=today)
+            endline.delete()
+        except:
+            pass
+        # 新しい日付を追加
+        try:
+            newday = Deadline(date=(today + datetime.timedelta(days=30)), week=week)
+            newday.save()
+        except:
+            pass
