@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block header %}
+
+    {% include 'base/_breadcrumb.html' %}
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-10 align-self-center">
+            <h1 class="lh-1 my-5 text-center">
+                <span class="border-bottom border-success border-2">プライバシーポリシー</span>
+            </h1>
+            <p class="lead">個人情報は集めるつもりはありません。ユーザー名も匿名で大丈夫です。各ユーザーのアカウント情報はデータベース管理者が管理しています。データベース管理者は各ユーザーのユーザー名とパスワードの変更はできますが、パスワード自体を知るすべは持ち合わせておりませんので、パスワードは普段使いのもので結構ですが、一応別で作っておいたほうがいいかもしれません。（今後勉強していく過程で、知るすべを手に入れるかもしれません。）</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

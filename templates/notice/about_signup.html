@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block title %}About Sign Up{% endblock %}
+
+{% block header %}
+
+    {% include 'base/_breadcrumb.html' %}
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-10 align-self-center">
+            <h1 class="lh-1 my-5 text-center">
+                <span class="border-bottom border-success border-2">サインアップについて</span>
+            </h1>
+            <p class="lead">サインアップには、ユーザー名（匿名可）とパスワードが必要になります。また、サインアップした場合は、データベース管理者にログイン権限を与えてもらってください。（現在、本人確認と部外者ではないかの確認をするすべを持ち合わせておりません。お手数をおかけしますがご理解の程よろしくお願いします。）</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

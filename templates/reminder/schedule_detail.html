@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Schedule Detail{% endblock %}
+
+{% block header %}
+<!-- breadcrumb -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb p-3 bg-light rounded-2">
+        <li class="breadcrumb-item"><a href="{% url 'notice:index' %}" class="link-success">ホーム</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'reminder:schedule_list' %}" class="link-success">Reminder - スケジュール一覧</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb }}</li>
+    </ol>
+</nav>
+<!-- breadcrumb -->
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-10 align-self-center">
+            <h1 class="text-center lh-1 my-5">
+                <span class="border-bottom border-success border-2">スケジュール詳細</span>
+            </h1>
+            {% for c in categories %}
+                {% if object.category.name == c.name %}
+                <div class="card border-{{ c.bs_color }} my-3">
+                    <div class="card-header bg-{{ c.bs_color }} text-white">
+                        <i class="bi {{ c.bs_icon }} me-2"></i>{{ c.name }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+                <div class="card-body">
+                    <div class="row card-text">
+                        <div class="col-auto">教科：</div>
+                        <div class="col">{{ object.subject.name }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">締め切り日：</div>
+                        <div class="col">{{ object.deadline }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">タイトル：</div>
+                        <div class="col">{{ object.title }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">詳細：</div>
+                        <div class="col">{{ object.detail }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">作成日時：</div>
+                        <div class="col">{{ object.created_at }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">変更日時：</div>
+                        <div class="col">{{ object.updated_at }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">スケジュールID：</div>
+                        <div class="col">{{ object.pk }}</div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="btn-group">
+                            {% for c in categories %}
+                                {% if object.category.name == c.name %}
+                                <a href="{% url 'reminder:schedule_update' object.pk %}" class="btn btn-sm btn-outline-{{ c.bs_color }}">編集する</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detail -->
+{% endblock %}

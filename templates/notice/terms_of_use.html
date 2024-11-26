@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block title %}Terms Of Use{% endblock %}
+
+{% block header %}
+
+    {% include 'base/_breadcrumb.html' %}
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-10 align-self-center">
+            <h1 class="lh-1 my-5 text-center">
+                <span class="border-bottom border-success border-2">利用規約</span>
+            </h1>
+            <p class="lead">良識の範囲内で利用してください。このプロジェクトにおいて生じた問題や事件におきましては、このプロジェクトの製作関係者および協力者側に重過失があった場合を除き、一切責任を負いません。</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

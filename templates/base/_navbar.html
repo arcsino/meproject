@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" aria-label="Offcanvas navbar large">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'notice:index' %}">
+            <span class="border-success border-bottom border-2  ms-2 uniwars">me<span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbar2Label">
+                    <span class="border-success border-bottom border-2 uniwars">me<span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column flex-lg-row">
+                <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 mb-auto">
+                    <li class="nav-item dropdown ms-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-info-circle me-2"></i>About
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'notice:about_signup' %}">
+                                    <i class="bi bi-person-add me-2"></i>サインアップについて
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'notice:terms_of_use' %}">
+                                    <i class="bi bi-journal-check me-2"></i>利用規約
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'notice:privacy_policy' %}">
+                                    <i class="bi bi-shield-check me-2"></i>プライバシーポリシー
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown ms-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person me-2"></i>Account
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if user.is_authenticated %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:password_change' %}">
+                                    <i class="bi bi-key me-2"></i>パスワード変更
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:logout_confirm' %}">
+                                    <i class="bi bi-door-open pe-2"></i>ログアウト
+                                </a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:login' %}">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>ログイン
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'accounts:signup' %}">
+                                    <i class="bi bi-person-add me-2"></i>サインアップ
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown ms-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell me-2"></i>Reminder
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'reminder:month' %}">
+                                    <i class="bi bi-calendar3 me-2"></i>月間カレンダー
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'reminder:week' %}">
+                                    <i class="bi bi-calendar3-week me-2"></i>週間カレンダー
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'reminder:day' %}">
+                                    <i class="bi bi-calendar3-event me-2"></i>日間カレンダー
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'reminder:schedule_create' %}">
+                                    <i class="bi bi-plus-square me-2"></i>スケジュール作成
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'reminder:schedule_list' %}">
+                                    <i class="bi bi-check-square me-2"></i>スケジュール一覧
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav align-items-center border border-success border-2 px-2 py-3 py-lg-0">
+                    <li><i class="bi bi-person-check pe-2"></i>{{ user }}</li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav align-items-center border border-warning border-2 px-2 py-3 py-lg-0">
+                    <li><i class="bi bi-person-exclamation pe-2"></i>{{ user }}</li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

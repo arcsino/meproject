@@ -1,0 +1,171 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block header %}
+
+    {% include 'base/_carousel.html' %}
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
+<!-- Notice List -->
+
+<div class="container">
+    <div class="row align-items-center justify-content-center py-5">
+        <div class="col-12 col-lg-7">
+            <h2 class="text-center text-md-start fw-normal lh-1">お知らせ</h2><hr class="mb-4">
+            <ul class="list-group">
+                {% for new in notice %}
+                <li href="#" class="list-group-item d-flex gap-3 py-3" aria-current="true">
+                    <div class="gap-2 w-100">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="mb-0">{{ new.title }}</h6>
+                            <small class="opacity-50 text-nowrap text-end">{{ new.date_created }}</small>
+                        </div>
+                        <p class="mb-0 opacity-75">{{ new.content }}</p>
+                    </div>
+                </li>
+                {% empty %}
+                <li href="#" class="list-group-item d-flex gap-3 py-3" aria-current="true">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h6 class="mb-0">お知らせはありません。</h6>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <!-- ページネーション処理 -->
+            {% if is_paginated %}
+            <nav aria-label="pagination">
+                <ul class="pagination justify-content-end mt-4">
+                    <!-- 前ページへのリンク -->
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- ページ数表示 -->
+                    {% for page_num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == page_num %}
+                        <li class="page-item active">
+                            <a class="page-link" href="#">{{ page_num }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- 次のページへのリンク -->
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Notice List -->
+
+<!-- main contents -->
+
+<div class="bg-light mt-1">
+    <div class="container bg-light">
+        <div class="row py-5">
+            <div class="col-md-7 order-md-2">
+                <h2 class="fw-normal lh-1">MEについて</h2><hr>
+                <p class="">MEとは、"More Efficiently"の略です。</p>
+                <p class="">その名の通り、勉強を"より効率的に"するためのプロジェクトです。</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="{% static 'images/photo1.png' %}" class="img-fluid img-thumbnail myimage" width="100%">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row py-5">
+        <div class="col-md-7">
+            <h2 class="fw-normal lh-1">MEの目的</h2><hr>
+            <p class="">このプロジェクトの目的は主に以下の２つです。</p>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">皆がより効率的に勉強を出来るようにするため</li>
+                <li class="list-group-item">勉強にやる気のない自分を奮い立たせるため</li>
+            </ul>
+        </div>
+        <div class="col-md-5">
+            <img src="{% static 'images/photo2.png' %}" class="img-fluid img-thumbnail myimage" width="100%">
+        </div>
+    </div>
+</div>
+
+<div class="bg-light">
+    <div class="container bg-light">
+        <div class="row py-5">
+            <div class="col-md-7 order-md-2">
+                <h2 class="fw-normal lh-1">MEで出来ること</h2><hr>
+                <p class="mb-4">現在プロジェクト内には以下のアプリケーションがあります。</p>
+                <div class="row row-cols-2">
+                    <div class="col">
+                        <div class="d-inline-flex align-items-center justify-content-center text-bg-success rounded-3 fs-2 mb-2 p-2">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h4 class="fs-2">Accounts</h4>
+                        <p>ログイン機能を実装するためのアプリ。部外者が他のアプリに干渉することを防ぎます。</p>
+                    </div>
+                    <div class="col">
+                        <div class="d-inline-flex align-items-center justify-content-center text-bg-success rounded-3 fs-2 mb-2 p-2">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <h4 class="fs-2">Reminder</h4>
+                        <p>皆で設定したスケジュールを特定の時間で通知することで、課題や持ってくる物を忘れることを防ぎます。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="{% static 'images/photo3.png' %}" class="img-fluid img-thumbnail myimage" width="100%" >
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row py-5">
+        <div class="col-md-7 pb-4">
+            <h2 class="fw-normal lh-1">ユーザー登録について</h2><hr>
+            <p class="">サインアップする前に必ず、利用規約を読んでください。サインアップした時点で、利用規約に同意したものとみなします。</p>
+            <div class="list-group">
+                <a href="{% url 'notice:about_signup' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-person-add me-2"></i>サインアップについて
+                </a>
+                <a href="{% url 'notice:terms_of_use' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-journal-check me-2"></i>利用規約
+                </a>
+                <a href="{% url 'notice:privacy_policy' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-shield-check me-2"></i>プライバシーポリシー
+                </a>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <img src="{% static 'images/photo4.png' %}" class="img-fluid img-thumbnail myimage" width="100%">
+        </div>
+    </div>
+</div>
+
+<!-- main contents -->
+{% endblock %}

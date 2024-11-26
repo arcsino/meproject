@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Month Calendar{% endblock %}
+
+{% block header %}
+
+    {% include 'base/_breadcrumb.html' %}
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center text-center pb-5">
+        <div class="col align-self-center">
+            <h1 class="text-center lh-1 my-5">
+                <span class="border-bottom border-success border-2">月間カレンダー</span>
+            </h1>
+            <nav aria-label="pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'reminder:month' month_previous.year month_previous.month %}">前月</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link disabled">{{ month_current | date:"Y年m月" }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'reminder:month' month_next.year month_next.month %}">次月</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-secondary">
+                        <tr>
+                            {% for w in week_names %}
+                            <th style="min-width: 6rem;">{{ w }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for week in month_days %}
+                        <tr>
+                            {% for day in week %}
+                                {% if now == day %}
+                                <td class="table-success">
+                                {% else %}
+                                <td>
+                                {% endif %}
+                                    {% if month_current.month != day.month %}
+                                        {{ day | date:"m/d" }}
+                                    {% else %}
+                                        {{ day.day }}
+                                    {% endif %}
+                                    <hr class="border-0">
+                                    <ul class="list-unstyled mb-0">
+                                        {% if schedules %}
+                                            {% for s in schedules %}
+                                                {% if s.deadline == day %}
+                                                <li>
+                                                    {% for c in categories %}
+                                                        {% if s.category.name == c.name %}
+                                                        <span class="badge bg-{{ c.bs_color }} text-white fw-normal">
+                                                            <i class="bi {{ c.bs_icon }} me-1"></i>{{ c.name }}
+                                                        </span>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

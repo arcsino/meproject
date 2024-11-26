@@ -1,0 +1,48 @@
+{% load static %}
+
+<!-- carousel -->
+<div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'images/carousel2.png' %}" class="d-block w-100 animated-background1">
+            <div class="container">
+                <div class="carousel-caption text-start">
+                    <p class="h1 uniwars">More Efficiently.</p>
+                    <p class="opacity-75 pb-5 uniwars">Eliminate waste through efficient study and improve your daily life.</p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/carousel2.png' %}" class="d-block w-100 animated-background2">
+            <div class="container">
+                <div class="carousel-caption">
+                    <p class="h1 uniwars">Shared reminder.</p>
+                    <p class="opacity-75 pb-5 uniwars">By sharing, there is no problem even if you forget to set the reminder.</p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/carousel2.png' %}" class="d-block w-100 animated-background3">
+            <div class="container">
+                <div class="carousel-caption text-end">
+                    <p class="h1 uniwars">Works with Discord API.</p>
+                    <p class="opacity-75 pb-5 uniwars">Discord is used by everyone, and there are many benefits to be gained by linking it together.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!-- carousel -->

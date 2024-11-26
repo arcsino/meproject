@@ -1,0 +1,65 @@
+@font-face {
+    font-family: "uniwars";
+    src: url("../fonts/uniwars.otf") format("opentype");
+}
+* {
+    font-family: "M PLUS Rounded 1c", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.uniwars {
+    font-family: "uniwars", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.animated-background1,
+.animated-background2,
+.animated-background3 {
+    height: 100%;
+    object-fit: cover;
+}
+.animated-background1 {
+    animation: gradient-animation1 10s ease infinite;
+}
+.animated-background2 {
+    animation: gradient-animation2 10s ease infinite;
+}
+.animated-background3 {
+    animation: gradient-animation3 10s ease infinite;
+}
+@keyframes gradient-animation1 {
+    0% {
+        filter: hue-rotate(-10deg);
+    }
+    50% {
+        filter: hue-rotate(40deg);
+    }
+    100% {
+        filter: hue-rotate(-10deg);
+    }
+}
+@keyframes gradient-animation2 {
+    0% {
+        filter: hue-rotate(-30deg);
+    }
+    50% {
+        filter: hue-rotate(-60deg);
+    }
+    100% {
+        filter: hue-rotate(-30deg);
+    }
+}
+@keyframes gradient-animation3 {
+    0% {
+        filter: hue-rotate(60deg);
+    }
+    50% {
+        filter: hue-rotate(120deg);
+    }
+    100% {
+        filter: hue-rotate(60deg);
+    }
+}
+.myimage {
+    object-fit: cover;
+}
