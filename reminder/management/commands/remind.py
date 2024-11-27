@@ -13,7 +13,7 @@ def webhook(url, color, description, id):
 
 
 class Command(BaseCommand):
-    help = "スケジュールの日程を一か月分作る"
+    help = "今日のスケジュールを通知させる"
 
     def handle(self, *args, **options):
         today = datetime.datetime.today()
