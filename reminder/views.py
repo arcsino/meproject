@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.utils import timezone
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import Category, Schedule
-from .forms import ScheduleCreateForm
+from .forms import ScheduleCreateForm, ScheduleFinishedForm
 from . import mixins
 import datetime
 
@@ -122,6 +123,56 @@ class ScheduleUpdateView(LoginRequiredMixin, generic.UpdateView):
         schedule.updated_by = str(self.request.user)
         schedule.save()
         messages.info(self.request, 'スケジュールを更新しました。')
+        return super().form_valid(form)
+
+
+class ScheduleFinishedView(LoginRequiredMixin, generic.UpdateView):
+    """スケジュール完遂ビュー"""
+    model = Schedule
+    template_name = 'reminder/schedule_finished.html'
+    form_class = ScheduleFinishedForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        finished_context = {
+            "breadcrumb": "スケジュール完遂",
+        }
+        context.update(finished_context)
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy("reminder:schedule_detail", kwargs={"pk": self.kwargs["pk"]})
+    
+    def form_valid(self, form):
+        schedule = form.save(commit=False)
+        schedule.finished_user.add(self.request.user)
+        schedule.save()
+        messages.info(self.request, "完遂ユーザーに追加しました。")
+        return super().form_valid(form)
+
+
+class ScheduleUnfinishedView(LoginRequiredMixin, generic.UpdateView):
+    """スケジュール未完遂ビュー"""
+    model = Schedule
+    template_name = 'reminder/schedule_finished.html'
+    form_class = ScheduleFinishedForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        finished_context = {
+            "breadcrumb": "スケジュール完遂",
+        }
+        context.update(finished_context)
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy("reminder:schedule_detail", kwargs={"pk": self.kwargs["pk"]})
+    
+    def form_valid(self, form):
+        schedule = form.save(commit=False)
+        schedule.finished_user.remove(self.request.user)
+        schedule.save()
+        messages.error(self.request, "完遂ユーザーから削除しました。")
         return super().form_valid(form)
 
 

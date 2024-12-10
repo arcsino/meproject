@@ -104,7 +104,7 @@ class Schedule(models.Model):
     )
     created_at = models.DateTimeField(
         _("作成日時"),
-        auto_now_add=True
+        auto_now_add=True,
     )
     updated_by = models.CharField(
         _("編集者"),
@@ -113,7 +113,7 @@ class Schedule(models.Model):
     )
     updated_at = models.DateTimeField(
         _("変更日時"),
-        auto_now=True
+        auto_now=True,
     )
     finished_user = models.ManyToManyField(
         CustomUser,

@@ -13,3 +13,10 @@ class ScheduleCreateForm(forms.ModelForm):
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = field.help_text
+
+
+class ScheduleFinishedForm(forms.ModelForm):
+
+    class Meta:
+        model = Schedule
+        fields = ()
