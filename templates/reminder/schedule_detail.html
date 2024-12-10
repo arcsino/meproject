@@ -45,12 +45,29 @@
                     <hr>
                     <div class="row card-text">
                         <div class="col-auto">詳細：</div>
-                        <div class="col">{{ object.detail }}</div>
+                        <div class="col">
+                            {% if object.detail %}
+                                {{ object.detail }}
+                            {% else %}
+                                <span class="text-secondary">なし</span>
+                            {% endif %}
+                        </div>
                     </div>
                     <hr>
                     <div class="row card-text">
                         <div class="col-auto">締め切り日：</div>
                         <div class="col">{{ object.deadline }}</div>
+                    </div>
+                    <hr>
+                    <div class="row card-text">
+                        <div class="col-auto">完遂ユーザー：</div>
+                        <div class="col">
+                            {% for u in object.finished_user.all %}
+                            <span class="me-2">{{ u }}</span>
+                            {% empty %}
+                            <span class="text-secondary">完遂ユーザーはいません。</span>
+                            {% endfor %}
+                        </div>
                     </div>
                     <hr>
                     <div class="row card-text">
@@ -72,6 +89,11 @@
                             {% for c in categories %}
                                 {% if object.category.name == c.name %}
                                 <a href="{% url 'reminder:schedule_update' object.pk %}" class="btn btn-sm btn-outline-{{ c.bs_color }}">編集する</a>
+                                    {% if not user in object.finished_user.all %}
+                                    <a href="{% url 'reminder:schedule_finished' object.pk %}" class="btn btn-sm btn-outline-{{ c.bs_color }}">完遂ユーザー</a>
+                                    {% else %}
+                                    <a href="{% url 'reminder:schedule_unfinished' object.pk %}" class="btn btn-sm btn-outline-{{ c.bs_color }}">完遂ユーザー</a>
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
                         </div>

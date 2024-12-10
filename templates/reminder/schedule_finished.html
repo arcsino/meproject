@@ -1,0 +1,44 @@
+{% extends "base/base.html" %}
+
+{% block title %}Schedule Finished{% endblock %}
+
+{% block header %}
+<!-- breadcrumb -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb p-3 bg-light rounded-2">
+        <li class="breadcrumb-item"><a href="{% url 'notice:index' %}" class="link-success">ホーム</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'reminder:schedule_list' %}" class="link-success">Reminder - スケジュール一覧</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'reminder:schedule_detail' object.pk %}" class="link-success">スケジュールの詳細</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb }}</li>
+    </ol>
+</nav>
+<!-- breadcrumb -->
+
+    {% include 'base/_alert.html' %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center text-center pb-5">
+        <div class="col-md-7 align-self-center">
+            <h1 class="lh-1 my-5">
+                <span class="border-bottom border-success border-2">スケジュール完遂</span>
+            </h1>
+            <form method="post">{% csrf_token %}
+                {% if not user in object.finished_user.all %}
+                <p class="mb-5">完遂ユーザーにあなたのニックネームが記載されます。</p>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-2"></i>Finished Schedule
+                </button>
+                {% else %}
+                <p class="mb-5">完遂ユーザーからあなたのニックネームが削除されます。</p>
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-x-circle me-2"></i>Unfinished Schedule
+                </button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
