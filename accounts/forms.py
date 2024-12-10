@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
-from django.forms import ModelForm
+from django import forms
 
 
 User = get_user_model()
@@ -11,7 +11,7 @@ class SignupForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "password1", "password2")
+        fields = ("username", "nickname", "password1", "password2")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,6 +21,19 @@ class SignupForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['placeholder'] = field.label
+
+
+class NicknameChangeForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ("nickname",)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

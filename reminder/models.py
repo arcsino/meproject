@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from accounts.models import CustomUser
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -112,6 +114,11 @@ class Schedule(models.Model):
     updated_at = models.DateTimeField(
         _("変更日時"),
         auto_now=True
+    )
+    finished_user = models.ManyToManyField(
+        CustomUser,
+        verbose_name="完遂ユーザー",
+        blank=True,
     )
 
     def __str__(self):

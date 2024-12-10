@@ -53,7 +53,7 @@ class DeadlineAdmin(admin.ModelAdmin):
 class ScheduleAdmin(admin.ModelAdmin):
     
     list_display = ("title", "subject", "category", "deadline", "updated_by", "updated_at")
-    ordering = ("-deadline",)
+    ordering = ("deadline",)
 
 
 admin.site.register(Category, CategoryAdmin)

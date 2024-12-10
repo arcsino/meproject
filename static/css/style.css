@@ -32,7 +32,7 @@
         filter: hue-rotate(-10deg);
     }
     50% {
-        filter: hue-rotate(40deg);
+        filter: hue-rotate(50deg);
     }
     100% {
         filter: hue-rotate(-10deg);
@@ -40,13 +40,13 @@
 }
 @keyframes gradient-animation2 {
     0% {
-        filter: hue-rotate(-30deg);
+        filter: hue-rotate(-40deg);
     }
     50% {
-        filter: hue-rotate(-60deg);
+        filter: hue-rotate(-100deg);
     }
     100% {
-        filter: hue-rotate(-30deg);
+        filter: hue-rotate(-40deg);
     }
 }
 @keyframes gradient-animation3 {

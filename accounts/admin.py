@@ -8,13 +8,15 @@ User = get_user_model()
 class CustomUserAdmin(UserAdmin):
     list_display = (
         "username",
+        "nickname",
         "is_staff",
         "is_active",
+        "id"
     )
     search_fields = ("username",)
-    ordering = ("id",)
     fieldsets = (("ユーザー情報", {"fields": (
         "username",
+        "nickname",
         "password",
         "is_staff",
         "is_active",
@@ -22,6 +24,7 @@ class CustomUserAdmin(UserAdmin):
     )}),)
     add_fieldsets = ((None, {"fields": (
         "username",
+        "nickname",
         "password1", 
         "password2",
     ),},),)

@@ -44,6 +44,11 @@
                         <ul class="dropdown-menu">
                             {% if user.is_authenticated %}
                             <li>
+                                <a class="dropdown-item" href="{% url 'accounts:nickname_change' user.pk %}">
+                                    <i class="bi bi-tag me-2"></i>ニックネーム変更
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="{% url 'accounts:password_change' %}">
                                     <i class="bi bi-key me-2"></i>パスワード変更
                                 </a>
@@ -107,7 +112,7 @@
                 </ul>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav align-items-center border border-success border-2 px-2 py-3 py-lg-0">
-                    <li><i class="bi bi-person-check pe-2"></i>{{ user }}</li>
+                    <li><i class="bi bi-person-check pe-2"></i>{{ user.nickname }}</li>
                 </ul>
                 {% else %}
                 <ul class="navbar-nav align-items-center border border-warning border-2 px-2 py-3 py-lg-0">

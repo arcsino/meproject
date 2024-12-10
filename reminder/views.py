@@ -98,10 +98,6 @@ class ScheduleCreateView(LoginRequiredMixin, generic.CreateView):
         schedule.save()
         messages.success(self.request, 'スケジュールを作成しました。')
         return super().form_valid(form)
-    
-    def form_invalid(self, form):
-        messages.error(self.request, 'スケジュールの作成に失敗しました。')
-        return super().form_invalid(form)
 
 
 class ScheduleUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -127,10 +123,6 @@ class ScheduleUpdateView(LoginRequiredMixin, generic.UpdateView):
         schedule.save()
         messages.info(self.request, 'スケジュールを更新しました。')
         return super().form_valid(form)
-    
-    def form_invalid(self, form):
-        messages.warning(self.request, 'スケジュールの更新に失敗しました。')
-        return super().form_invalid(form)
 
 
 class ScheduleDeleteView(LoginRequiredMixin, generic.DeleteView):
