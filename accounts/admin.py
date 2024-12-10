@@ -13,6 +13,7 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "id"
     )
+    ordering = ("date_joined",)
     search_fields = ("username",)
     fieldsets = (("ユーザー情報", {"fields": (
         "username",

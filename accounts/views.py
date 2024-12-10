@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import (
     LoginView,
     LogoutView,
@@ -6,6 +6,7 @@ from django.contrib.auth.views import (
     PasswordChangeDoneView,
 )
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import generic
@@ -18,6 +19,15 @@ from .forms import (
 
 
 User = get_user_model()
+
+
+class OnlyYouMixin(UserPassesTestMixin):
+    raise_exception = True
+
+    def test_func(self):
+        account = get_object_or_404(User, pk=self.kwargs["pk"])
+        return self.request.user == account
+
 
 class SignupView(generic.CreateView):
     """ サインアップビュー """
@@ -86,7 +96,7 @@ class LogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'accounts/login.html'
 
 
-class NicknameChangeView(LoginRequiredMixin, generic.UpdateView):
+class NicknameChangeView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView):
     """ ニックネーム変更ビュー """
     model = User
     form_class = NicknameChangeForm

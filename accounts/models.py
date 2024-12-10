@@ -43,7 +43,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(
         _("username"),
-        max_length=127,
+        max_length=150,
         unique=True,
         help_text=_(
             "この項目は必須です。半角アルファベット、半角数字、@/./+/-/_ で150文字以下にしてください。"
@@ -56,7 +56,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     nickname = models.CharField(
         _("ニックネーム"),
         max_length=32,
-        default="unknown",
         help_text=_(
             "この項目はスケジュール完遂ユーザーで公開される名前です。"
         ),
