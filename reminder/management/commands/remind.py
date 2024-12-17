@@ -22,7 +22,10 @@ class Command(BaseCommand):
             for schedule in schedules:
                 url = schedule.category.webhook_url
                 color = schedule.category.embed_color
-                description = f"`カテゴリー`：{schedule.category.name}\n`教科`：{schedule.subject.name}\n`タイトル`：{schedule.title}\n`詳細`：{schedule.detail}\n`締め切り日`：{schedule.deadline.date}\n"
+                fu = ""
+                for fus in schedule.finished_user.all():
+                    fu += f"{fus.nickname} "
+                description = f"`カテゴリー`：{schedule.category.name}\n`教科`：{schedule.subject.name}\n`タイトル`：{schedule.title}\n`詳細`：{schedule.detail}\n`締め切り日`：{schedule.deadline.date}\n`完遂ユーザー`：{fu}\n"
                 schedule_id = schedule.pk
                 webhook(url=url, color=color, description=description, id=schedule_id)
         except:
